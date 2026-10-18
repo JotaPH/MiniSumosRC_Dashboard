@@ -21,7 +21,7 @@ h1{margin:0;font-size:clamp(27px,5vw,48px);letter-spacing:2px;text-transform:upp
 .name{font-size:clamp(24px,4vw,38px);font-weight:1000;text-transform:uppercase;text-shadow:0 0 18px var(--robot-color)}
 .count{font-size:clamp(76px,16vw,150px);line-height:.95;font-weight:1000;font-variant-numeric:tabular-nums;text-shadow:0 0 24px var(--robot-color);margin:6px 0}
 .unit{font-size:13px;font-weight:900;letter-spacing:4px;color:#9cb8cb}
-.buttons{width:min(620px,100%);display:grid;grid-template-columns:2fr 1fr;align-items:center;gap:14px;margin-top:10px}
+.buttons{width:min(620px,100%);display:grid;grid-template-columns:1fr 2fr;align-items:center;gap:14px;margin-top:10px}
 button.action{height:60px;min-height:60px;border:1px solid #426782;border-radius:16px;background:#102b40;color:#fff;font-size:clamp(17px,3vw,24px);font-weight:1000;cursor:pointer;transition:transform .15s,filter .15s}
 button.action:active:not(:disabled){transform:scale(.98)}
 button.action.add{height:120px;min-height:120px;border:0;background:linear-gradient(110deg,#0bb9e7,#70efff);color:#03101a;font-size:clamp(20px,3.4vw,30px);box-shadow:0 0 26px #0bb9e755}
@@ -31,7 +31,7 @@ button.action:disabled{opacity:.3;filter:grayscale(1);cursor:not-allowed}
 .back{margin-top:4px;color:#91cfe9;text-decoration:none;font-weight:800;font-size:13px}.back:hover{color:#fff}
 @media(max-width:600px){body{padding:10px;padding-top:66px;padding-bottom:max(10px,env(safe-area-inset-bottom))}.page{width:100%;min-height:calc(100svh - 76px);justify-content:center;padding:20px 12px;border-radius:18px;gap:12px}.kicker{font-size:10px;letter-spacing:2px}h1{font-size:clamp(23px,7vw,34px)}.robot{width:clamp(105px,28vw,155px);height:clamp(105px,28vw,155px)}.name{font-size:clamp(22px,6vw,30px)}.count{font-size:clamp(68px,20vw,108px);margin:0}.unit{font-size:10px;letter-spacing:2px}.buttons{gap:10px;margin-top:4px}button.action{height:58px;min-height:58px;font-size:clamp(15px,4vw,19px);border-radius:12px}button.action.add{height:116px;min-height:116px;font-size:clamp(18px,5vw,24px)}.phase{font-size:10px;letter-spacing:1px;padding:9px 13px}.back{font-size:12px}}
 @media(max-height:650px){body{padding-top:62px}.page{gap:8px;padding-top:12px;padding-bottom:12px}.robot{width:clamp(75px,16vh,125px);height:clamp(75px,16vh,125px)}.count{font-size:clamp(58px,13vh,92px)}button.action.add{height:88px;min-height:88px}button.action{height:44px;min-height:44px}}
-@media(max-width:380px){.buttons{grid-template-columns:1.7fr 1fr;gap:7px}button.action{font-size:14px}button.action.add{font-size:17px}}
+@media(max-width:380px){.buttons{grid-template-columns:1fr 1.7fr;gap:7px}button.action{font-size:14px}button.action.add{font-size:17px}}
 </style>
 </head>
 <body>
@@ -45,8 +45,8 @@ button.action:disabled{opacity:.3;filter:grayscale(1);cursor:not-allowed}
 <div class="unit">ATAQUES REGISTRADOS</div>
 <div class="phase" id="phase">CARGANDO ESTADO...</div>
 <div class="buttons">
-<button class="action add" id="addAttack" disabled>＋ AUMENTAR</button>
 <button class="action" id="removeAttack" disabled>− DISMINUIR</button>
+<button class="action add" id="addAttack" disabled>＋ AUMENTAR</button>
 </div>
 <a class="back" href="/">← Volver a la arena principal</a>
 </main>
