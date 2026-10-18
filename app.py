@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, send_from_directory
 from threading import Lock
 import time
 
@@ -10,7 +10,7 @@ state = {
     "attacks1": 0, "attacks2": 0,
     "status": "PREPARADOS PARA LA BATALLA",
     "elapsed_seconds": 0, "started_at": None,
-    "winner": "", "reason": "", "phase": "ready"
+    "winner": "", "reason": "", "phase": "ready",\n    "battle_number": 1, "robot1_image": "/R_Amarillo.png", "robot2_image": "/R_Morado.png"
 }
 
 def snapshot():
