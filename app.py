@@ -6,11 +6,13 @@ app = Flask(__name__)
 lock = Lock()
 
 state = {
-    "robot1": "ALPHA", "robot2": "GAMMA",
+    "robot1": "AMARILLO", "robot2": "MORADO",
+    "robot1_image": "/R_Amarillo.png", "robot2_image": "/R_Morado.png",
+    "battle_number": 1,
     "attacks1": 0, "attacks2": 0,
     "status": "PREPARADOS PARA LA BATALLA",
     "elapsed_seconds": 0, "started_at": None,
-    "winner": "", "reason": "", "phase": "ready",\n    "battle_number": 1, "robot1_image": "/R_Amarillo.png", "robot2_image": "/R_Morado.png"
+    "winner": "", "reason": "", "phase": "ready"
 }
 
 def snapshot():
@@ -23,7 +25,14 @@ def snapshot():
 def home():
     return render_template("index.html")
 
-@app.get("/<path:filename>")\ndef assets(filename):\n    allowed = {"Fondo.jpg", "R_Amarillo.png", "R_Morado.png", "R_Rojo.png", "R_Verde.png"}\n    if filename not in allowed:\n        return jsonify({"error": "Recurso no encontrado"}), 404\n    return send_from_directory(app.root_path, filename)\n\n@app.get("/api/state")
+@app.get("/<path:filename>")
+def assets(filename):
+    allowed = {"Fondo.jpg", "R_Amarillo.png", "R_Morado.png", "R_Rojo.png", "R_Verde.png"}
+    if filename not in allowed:
+        return jsonify({"error": "Recurso no encontrado"}), 404
+    return send_from_directory(app.root_path, filename)
+
+@app.get("/api/state")
 def get_state():
     with lock:
         return jsonify(snapshot())
