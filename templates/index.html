@@ -1,45 +1,197 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MiniSumos RC · Marcador</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MiniSumos RC · Arena</title>
 <style>
-:root{--bg:#06111f;--panel:#091a2d;--line:#244767;--blue:#38c8ff;--red:#ff4c69;--text:#eaf5ff;--muted:#c6d7e9;--green:#39e58c}\n*{box-sizing:border-box}body{margin:0;min-height:100vh;background:linear-gradient(120deg,rgba(2,8,20,.72),rgba(3,12,29,.5)),url('/Fondo.jpg') center/cover fixed no-repeat;color:var(--text);font-family:Arial,Helvetica,sans-serif}\nbody:before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 20% 15%,#00bfff20,transparent 42%),radial-gradient(ellipse at 80% 80%,#ff174420,transparent 45%);z-index:-1}
-header{display:flex;align-items:center;justify-content:space-between;padding:17px 22px;border-bottom:1px solid #5d91b8aa;background:#04101bd9;backdrop-filter:blur(12px)}.brand{font-weight:900;font-style:italic;letter-spacing:2px}.brand span{color:var(--blue)}#connection{font-size:12px;color:var(--green)}
-main{max-width:1280px;margin:auto;padding:24px 16px 36px}.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}.role{padding:15px 8px;border:1px solid var(--line);border-radius:12px;background:#0a1a2c;color:var(--muted);font-weight:800;cursor:pointer}.role.active{color:white;border-color:var(--blue);background:linear-gradient(120deg,#103b63,#10233e);box-shadow:0 0 18px #168cff35}
-.layout{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}.card{background:linear-gradient(145deg,#08192bdc,#030914e8);border:1px solid #4a779b;border-radius:22px;padding:24px;box-shadow:0 18px 50px #0008;backdrop-filter:blur(10px)}.card h2{font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin:0 0 18px}
-.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}.robot{min-width:0;border:1px solid #36c9ff;border-radius:18px;padding:14px 8px 18px;text-align:center;background:linear-gradient(145deg,#06264ad9,#071326e8);box-shadow:0 0 28px #20baff22,inset 0 0 22px #168cff14}.robot.red{border-color:#ff4c69;background:linear-gradient(145deg,#3a0b20e8,#130b17ed);box-shadow:0 0 28px #ff315422,inset 0 0 22px #ff315414}.robot-img{display:block;width:100%;height:clamp(150px,25vw,290px);object-fit:contain;filter:drop-shadow(0 12px 15px #0009)}.symbol{display:none}.name{font-weight:900;font-size:clamp(18px,2.5vw,30px);margin-top:8px;overflow-wrap:anywhere;letter-spacing:1px}.versus{font-size:clamp(22px,3vw,36px);font-weight:1000;font-style:italic;color:#fff;text-shadow:0 0 18px #38c8ff99}.stats{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:8px;margin-top:16px}.stat{padding:15px 4px;text-align:center;background:#06101ce8;border:1px solid #2c5c7e;border-radius:14px;box-shadow:inset 0 0 18px #1c85c21a}.stat small{display:block;color:var(--muted);font-size:10px;letter-spacing:1px}.stat strong{display:block;font-size:clamp(20px,4vw,31px);margin-top:5px}.blue{color:var(--blue)}.redtext{color:var(--red)}.time{font-variant-numeric:tabular-nums}.status{text-align:center;margin-top:18px;font-size:clamp(14px,2.4vw,21px);font-weight:900;letter-spacing:1.5px;color:var(--blue);text-shadow:0 0 16px #38c8ff66}.battle-number{text-align:center;color:#b8d5ee;font-size:12px;letter-spacing:3px;font-weight:800;margin-bottom:16px}
-.control-title{font-size:20px;font-weight:800}.muted,.notice{color:var(--muted);font-size:13px;line-height:1.5}.big-count{font-size:clamp(100px,20vw,165px);line-height:1.05;font-weight:900;font-variant-numeric:tabular-nums;margin:24px 0;color:var(--blue)}
-.attack-btn{width:100%;min-height:100px;padding:22px 10px;border:0;border-radius:14px;color:#00101e;background:linear-gradient(100deg,#38c8ff,#7ce9ff);font-size:clamp(21px,4vw,30px);font-weight:900;cursor:pointer;box-shadow:0 5px 20px #168cff33}.attack-btn.redbtn{background:linear-gradient(100deg,#ff3154,#ff8c9f);color:#26030b}.attack-btn:active,.undo-btn:active{transform:scale(.985)}.attack-btn:disabled,.undo-btn:disabled{opacity:.38;filter:grayscale(.7);cursor:not-allowed;transform:none;box-shadow:none}.undo-btn{display:block;margin:20px auto 0;padding:15px 28px;min-width:250px;min-height:54px;border-radius:12px;border:1px solid #607b96;background:#152b41;color:#e4effa;font-size:17px;font-weight:800;cursor:pointer}
-.formrow{display:flex;gap:8px;margin-top:12px}.formrow input{min-width:0;flex:1;background:#071424;color:white;border:1px solid var(--line);border-radius:8px;padding:10px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.secondary{background:#102b45;border:1px solid #2c597e;color:#eaf5ff;padding:10px 12px;border-radius:9px;cursor:pointer;font-weight:700}.secondary.danger{border-color:#9b3044;color:#ff9bad}.notice{margin-top:14px}.hidden{display:none!important}.winner{text-align:center;color:#ffe66b;font-size:clamp(23px,4vw,40px);font-weight:900;margin-top:16px}.foot{text-align:center;color:#718aa3;font-size:12px;margin-top:22px}
-.layout.attack-mode{grid-template-columns:minmax(0,650px);justify-content:center}.layout.attack-mode>.battle-card{display:none}.layout.attack-mode #rolePanel{text-align:center;padding:clamp(24px,6vw,52px)}.layout.attack-mode #rolePanel h2{text-align:center}.layout.attack-mode .control-title{font-size:clamp(22px,4vw,30px)}.layout.attack-mode #roleDescription,.layout.attack-mode #adminPanel{display:none!important}.layout.attack-mode .big-count{font-size:clamp(115px,25vw,190px);margin:28px 0}.layout.attack-mode .attack-btn{min-height:110px}.layout.attack-mode .notice{max-width:420px;margin:14px auto 0}
-@media(max-width:720px){header{padding:14px}.layout{grid-template-columns:1fr}.card{padding:15px}.role{font-size:12px;padding:13px 4px}.layout.attack-mode #rolePanel{padding:26px 18px}}
-</style></head>
+:root{--cyan:#49eaff;--pink:#ff3d72;--white:#f5fbff;--glass:#071324c9}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0}
+body{overflow:hidden;background:#030914 url('/Fondo.jpg') center center/cover no-repeat fixed;color:var(--white);font-family:Impact,'Arial Black',system-ui,sans-serif}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(90deg,#02081465,#02081410 45%,#02081425 60%,#02081475),linear-gradient(0deg,#020814a8,transparent 30%,#02081420);z-index:0}
+#arena{position:relative;isolation:isolate;min-height:100vh;width:100%;height:100dvh;display:flex;flex-direction:column;padding:clamp(14px,2.2vw,30px) clamp(14px,3vw,46px) clamp(14px,2vw,26px)}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;position:relative;z-index:2}
+.brand{font-size:clamp(18px,2vw,29px);font-weight:1000;font-style:italic;letter-spacing:3px;text-transform:uppercase;text-shadow:0 0 16px #27cfff77}
+.brand span{color:var(--cyan)}
+.live{font:700 11px Arial,sans-serif;letter-spacing:1.5px;color:#d8f8ff;background:#04101ca8;border:1px solid #54dcff66;border-radius:99px;padding:9px 13px;backdrop-filter:blur(8px)}
+.live i{display:inline-block;width:7px;height:7px;background:#48f7a0;border-radius:50%;margin-right:7px;box-shadow:0 0 10px #48f7a0}
+.gear{width:43px;height:43px;display:grid;place-items:center;border:1px solid #78dfff88;border-radius:13px;background:#061525b8;color:white;font-size:22px;cursor:pointer;backdrop-filter:blur(8px);transition:.2s}
+.gear:hover{border-color:var(--cyan);box-shadow:0 0 22px #32dfff55;transform:rotate(25deg)}
+.battle-tag{position:relative;z-index:1;align-self:center;margin-top:clamp(18px,3vh,38px);padding:7px 17px;border:1px solid #63dfff80;border-radius:999px;background:#061626a8;color:#dffaff;font:800 11px Arial,sans-serif;letter-spacing:4px;box-shadow:0 0 25px #16bfff22;backdrop-filter:blur(8px)}
+.matchup{position:relative;z-index:1;flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(150px,.72fr) minmax(0,1fr);align-items:center;gap:clamp(4px,2vw,30px);width:min(1500px,100%);margin:0 auto}
+.combatant{height:100%;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;min-width:0}
+.combatant:before{content:"";position:absolute;width:90%;height:34%;bottom:16%;border-radius:50%;filter:blur(32px);opacity:.36;z-index:-1}
+.combatant.blue:before{background:#00bfff}.combatant.red:before{background:#ff245f}
+.robot-art{display:block;width:100%;height:min(52vh,490px);object-fit:contain;filter:drop-shadow(0 20px 28px #000b);animation:float 4.5s ease-in-out infinite;transition:filter .25s,transform .25s}
+.combatant.red .robot-art{animation-delay:-2.2s}
+.robot-name{max-width:100%;margin-top:clamp(0px,1vh,12px);font-size:clamp(24px,4.1vw,64px);line-height:.98;letter-spacing:clamp(1px,.28vw,5px);font-weight:1000;text-transform:uppercase;overflow-wrap:anywhere;text-shadow:0 3px 0 #06101c,0 0 10px currentColor,0 0 30px currentColor; -webkit-text-stroke:.5px #ffffff65}
+.blue .robot-name{color:var(--cyan)}.red .robot-name{color:#ff638b}
+.attack-score{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:clamp(12px,2vh,24px);font-family:Arial,Helvetica,sans-serif;font-size:clamp(10px,1vw,14px);font-weight:900;letter-spacing:3px;color:#e7f8ff}
+.attack-score strong{font-family:Impact,'Arial Black',sans-serif;font-size:clamp(38px,5.5vw,78px);line-height:.9;letter-spacing:1px}
+.blue .attack-score strong{color:#fff;text-shadow:0 0 8px var(--cyan),0 0 26px #00bfff}.red .attack-score strong{color:#fff;text-shadow:0 0 8px var(--pink),0 0 26px #ff245f}
+.center{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;text-align:center}
+.vs{font-size:clamp(36px,6vw,86px);font-weight:1000;font-style:italic;line-height:1;color:#fff;letter-spacing:-3px;text-shadow:0 0 12px #fff,0 0 35px #2acfff,0 0 65px #167dff;margin-bottom:clamp(18px,4vh,48px);animation:pulse 3s ease-in-out infinite}
+.timer-label{font:800 10px Arial,sans-serif;letter-spacing:5px;color:#bfeeff;margin-bottom:10px}
+.timer{font-family:Impact,'Arial Black',sans-serif;font-size:clamp(32px,5.2vw,76px);font-variant-numeric:tabular-nums;letter-spacing:1px;line-height:1;text-shadow:0 0 14px #43dcff88,0 0 32px #178cff55;white-space:nowrap}
+.status{margin-top:clamp(18px,3vh,35px);max-width:100%;font:900 clamp(9px,1.05vw,13px) Arial,sans-serif;letter-spacing:clamp(1px,.25vw,3px);color:var(--cyan);text-transform:uppercase;text-shadow:0 0 15px #20dfff88}
+.status.running{color:#65ffb5;text-shadow:0 0 14px #27ffae88}
+.winner{position:relative;z-index:2;align-self:center;margin:0 0 12px;padding:12px 24px;background:#071324d9;border:1px solid #ffe56d;border-radius:14px;color:#ffe66d;font-size:clamp(16px,2.5vw,28px);text-align:center;text-shadow:0 0 18px #ffe66d99}
+.bottomline{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:12px;color:#d5e9f8a8;font:700 10px Arial,sans-serif;letter-spacing:3px;text-align:center}
+.bottomline .line{width:clamp(30px,10vw,150px);height:1px;background:linear-gradient(90deg,transparent,#5ddfffaa)}
+.bottomline .line:last-child{transform:rotate(180deg)}
+#settings{position:fixed;z-index:10;top:0;right:0;width:min(420px,100vw);height:100dvh;padding:26px;background:#04101bf5;border-left:1px solid #50dfff70;box-shadow:-20px 0 70px #0009;backdrop-filter:blur(18px);overflow:auto;transform:translateX(105%);transition:transform .3s ease;font-family:Arial,Helvetica,sans-serif}
+#settings.open{transform:translateX(0)}
+.settings-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
+.settings-head h2{font-size:20px;letter-spacing:2px;margin:0}
+.close{background:transparent;border:1px solid #43647f;border-radius:9px;color:white;font-size:23px;width:40px;height:40px;cursor:pointer}
+.field-label{display:block;margin:18px 0 8px;font-size:11px;letter-spacing:2px;font-weight:800;color:#a9c5da;text-transform:uppercase}
+input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;border-radius:10px;color:white;font-size:15px;outline:none}
+input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #32dfff18}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
+.action{min-height:44px;border-radius:10px;padding:11px 12px;border:1px solid #38617f;background:#0d2941;color:#e9f8ff;font-weight:800;cursor:pointer}
+.action.primary{background:linear-gradient(100deg,#19c9f4,#83f1ff);border:0;color:#03101a}
+.action.danger{border-color:#92354e;color:#ff8fa7;background:#32121f}
+.action.wide{grid-column:1/-1}
+.help{font-size:12px;line-height:1.55;color:#91abc1;margin-top:20px}
+#scrim{position:fixed;inset:0;z-index:9;background:#0007;opacity:0;pointer-events:none;transition:opacity .25s}
+#scrim.open{opacity:1;pointer-events:auto}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.35)}}
+@media(min-width:1400px){.robot-art{height:min(56vh,570px)}}
+@media(max-width:700px){
+ #arena{padding:14px 12px 15px}.live{font-size:9px;padding:8px}.gear{width:39px;height:39px}
+ .battle-tag{margin-top:18px;letter-spacing:2px}
+ .matchup{grid-template-columns:minmax(0,1fr) minmax(76px,.55fr) minmax(0,1fr);gap:2px}
+ .robot-art{height:clamp(150px,35vh,300px);width:115%}
+ .robot-name{font-size:clamp(19px,5vw,32px);letter-spacing:1px}
+ .attack-score{flex-direction:column;gap:5px;letter-spacing:1px;font-size:9px}
+ .attack-score strong{font-size:clamp(36px,9vw,58px)}
+ .vs{font-size:clamp(32px,8vw,54px);margin-bottom:22px}
+ .timer-label{font-size:8px;letter-spacing:2px}.timer{font-size:clamp(27px,6.4vw,42px)}
+ .status{font-size:9px;letter-spacing:1px;line-height:1.4}
+ .bottomline{font-size:8px;letter-spacing:1.5px;gap:7px}
+}
+@media(max-height:560px) and (min-width:701px){
+ #arena{padding-top:8px;padding-bottom:8px}.battle-tag{margin-top:8px}.robot-art{height:48vh}.vs{margin-bottom:12px}.timer-label{margin-bottom:4px}.status{margin-top:10px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
 <body>
-<header><div class="brand">MINISUMOS <span>RC</span></div><div id="connection">● Conectando...</div></header>
-<main>
-<div class="roles"><button class="role active" data-role="view">VISUALIZACIÓN</button><button class="role" data-role="attack1">ATAQUES 1</button><button class="role" data-role="attack2">ATAQUES 2</button></div>
-<section class="layout">
-<div class="card battle-card"><div class="battle-number" id="battleNumber">BATALLA 01</div><h2>Marcador de batalla</h2><div class="vs"><div class="robot"><img class="robot-img" id="robotImage1" src="/R_Amarillo.png" alt="Robot 1"><div class="name" id="robot1">AMARILLO</div></div><div class="versus">VS</div><div class="robot red"><img class="robot-img" id="robotImage2" src="/R_Morado.png" alt="Robot 2"><div class="name" id="robot2">MORADO</div></div></div><div class="status" id="status">PREPARADOS PARA LA BATALLA</div><div class="stats"><div class="stat"><small>ATAQUES 1</small><strong class="blue" id="attacks1">0</strong></div><div class="stat"><small>TIEMPO</small><strong class="time" id="time">00:00:00</strong></div><div class="stat"><small>ATAQUES 2</small><strong class="redtext" id="attacks2">0</strong></div></div><div class="winner hidden" id="winner"></div></div>
-<div class="card" id="rolePanel"><h2 id="panelTitle">Panel de visualización</h2><div class="control-title" id="roleHeading">Visualización general</div><p class="muted" id="roleDescription">Pantalla general para participantes y público.</p>
-<div id="attackPanel" class="hidden"><div class="big-count" id="personalCount">0</div><button class="attack-btn" id="attackButton">+ REGISTRAR ATAQUE</button><button class="undo-btn" id="undoAttack">− Restar un ataque</button><p class="notice">Pulsa una vez por cada ataque válido.</p></div>
-<div id="adminPanel"><div class="control-title">Configuración de batalla</div><div class="formrow"><input id="inputRobot1" maxlength="40" value="ALPHA" aria-label="Nombre robot 1"><input id="inputRobot2" maxlength="40" value="GAMMA" aria-label="Nombre robot 2"></div><div class="actions"><button class="secondary" id="saveNames">Guardar nombres</button><button class="secondary" id="start">Iniciar batalla</button><button class="secondary" id="pause">Pausar</button><button class="secondary danger" id="finish">Finalizar</button></div><div class="formrow"><input id="winnerInput" placeholder="Ganador (opcional)"><input id="reasonInput" placeholder="Motivo (opcional)"></div><div class="actions"><button class="secondary" id="saveResult">Guardar resultado</button><button class="secondary" id="next">Siguiente batalla</button></div><p class="notice">Controles de demostración del servidor local.</p></div></div>
-</section><div class="foot">MiniSumos RC · Marcador local</div></main>
+<div id="arena">
+  <header class="topbar">
+    <div class="brand">MINISUMOS <span>RC</span></div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="live" id="connection"><i></i>CONECTANDO</div>
+      <button class="gear" id="openSettings" aria-label="Abrir parámetros" title="Parámetros">⚙</button>
+    </div>
+  </header>
+  <div class="battle-tag" id="battleNumber">ARENA · BATALLA 01</div>
+  <main class="matchup">
+    <section class="combatant blue">
+      <img class="robot-art" id="robotImage1" src="/R_Amarillo.png" alt="Imagen del robot 1">
+      <div class="robot-name" id="robot1">AMARILLO</div>
+      <div class="attack-score"><span>ATAQUES</span><strong id="attacks1">0</strong></div>
+    </section>
+    <section class="center">
+      <div class="vs">VS</div>
+      <div class="timer-label">TIEMPO DE BATALLA</div>
+      <div class="timer" id="time">00:00:00</div>
+      <div class="status" id="status">PREPARADOS PARA LA BATALLA</div>
+    </section>
+    <section class="combatant red">
+      <img class="robot-art" id="robotImage2" src="/R_Morado.png" alt="Imagen del robot 2">
+      <div class="robot-name" id="robot2">MORADO</div>
+      <div class="attack-score"><span>ATAQUES</span><strong id="attacks2">0</strong></div>
+    </section>
+  </main>
+  <div class="winner" id="winner" hidden></div>
+  <footer class="bottomline"><span class="line"></span><span>COMPETENCIA · PRECISIÓN · TECNOLOGÍA</span><span class="line"></span></footer>
+</div>
+<div id="scrim"></div>
+<aside id="settings" aria-label="Parámetros de batalla">
+  <div class="settings-head"><h2>PARÁMETROS</h2><button class="close" id="closeSettings" aria-label="Cerrar">×</button></div>
+  <p class="help" style="margin-top:0">Panel temporal para controlar la demostración. La pantalla principal permanece limpia para proyectarla en pantalla completa.</p>
+  <label class="field-label" for="inputRobot1">Nombre robot izquierdo</label><input id="inputRobot1" maxlength="40" value="AMARILLO">
+  <label class="field-label" for="inputRobot2">Nombre robot derecho</label><input id="inputRobot2" maxlength="40" value="MORADO">
+  <div class="actions">
+    <button class="action wide" id="saveNames">Guardar nombres</button>
+    <button class="action primary" id="start">▶ Iniciar</button>
+    <button class="action" id="pause">Ⅱ Pausar</button>
+    <button class="action danger" id="finish">■ Finalizar</button>
+    <button class="action" id="next">Siguiente batalla ↗</button>
+  </div>
+  <label class="field-label" for="winnerInput">Ganador (opcional)</label><input id="winnerInput" maxlength="40" placeholder="Nombre del robot ganador">
+  <label class="field-label" for="reasonInput">Motivo (opcional)</label><input id="reasonInput" maxlength="80" placeholder="Ej. mayor número de ataques">
+  <div class="actions"><button class="action wide" id="saveResult">Finalizar y guardar ganador</button></div>
+  <p class="help">Las parejas se alternan en cada nueva batalla: Amarillo vs. Morado; después Rojo vs. Verde. Los ataques solo se pueden registrar desde los controles habilitados durante la batalla.</p>
+</aside>
 <script>
-let role='view',lastState=null;const $=id=>document.getElementById(id);
-async function api(path,method='GET',body=null){const opts={method,headers:{'Content-Type':'application/json'}};if(body)opts.body=JSON.stringify(body);const res=await fetch(path,opts);if(!res.ok)throw Error('Error de comunicación');return res.json()}
-function fmt(s){s=Math.max(0,Number(s)||0);return [Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(v=>String(v).padStart(2,'0')).join(':')}
-function render(s){lastState=s;const battleRunning=s.phase==='running';$('attackButton').disabled=!battleRunning;$('undoAttack').disabled=!battleRunning;$('attackButton').title=battleRunning?'Registrar ataque':'Disponible solo durante una batalla en curso';$('undoAttack').title=battleRunning?'Restar un ataque':'Disponible solo durante una batalla en curso';$('robot1').textContent=s.robot1;$('robot2').textContent=s.robot2;$('robotImage1').src=s.robot1_image||'/R_Amarillo.png';$('robotImage2').src=s.robot2_image||'/R_Morado.png';$('battleNumber').textContent='BATALLA '+String(s.battle_number||1).padStart(2,'0');$('attacks1').textContent=s.attacks1;$('attacks2').textContent=s.attacks2;$('time').textContent=fmt(s.elapsed_seconds);$('status').textContent=s.status;$('winner').classList.toggle('hidden',!s.winner);$('winner').textContent=s.winner?'GANADOR: '+s.winner+(s.reason?' · '+s.reason:''):'';$('personalCount').textContent=role==='attack1'?s.attacks1:s.attacks2;$('roleHeading').textContent=role==='view'?'Visualización general':'Ataques robot '+(role==='attack1'?s.robot1:s.robot2);$('panelTitle').textContent=role==='view'?'Panel de visualización':'Registro de ataques';$('attackButton').classList.toggle('redbtn',role==='attack2');$('attackButton').textContent='+ REGISTRAR ATAQUE';$('inputRobot1').value=s.robot1;$('inputRobot2').value=s.robot2}
-function setRole(next){role=next;document.querySelectorAll('.role').forEach(b=>b.classList.toggle('active',b.dataset.role===role));const attack=role!=='view';$('attackPanel').classList.toggle('hidden',!attack);document.querySelector('.layout').classList.toggle('attack-mode',attack);$('adminPanel').classList.toggle('hidden',role!=='view');$('roleDescription').classList.toggle('hidden',attack);if(lastState)render(lastState)}
-document.querySelectorAll('.role').forEach(b=>b.addEventListener('click',()=>setRole(b.dataset.role)));
-$('attackButton').addEventListener('click',async()=>{if(!lastState||lastState.phase!=='running')return;try{await api('/api/attack/'+(role==='attack1'?1:2),'POST');await refresh()}catch(e){alert('No se pudo registrar el ataque.')}});
-$('undoAttack').addEventListener('click',async()=>{if(!lastState||lastState.phase!=='running')return;try{await api('/api/attack/'+(role==='attack1'?1:2)+'/decrement','POST');await refresh()}catch(e){alert('No se pudo restar el ataque.')}});
-$('saveNames').addEventListener('click',async()=>{try{await api('/api/config','POST',{robot1:$('inputRobot1').value,robot2:$('inputRobot2').value});await refresh()}catch(e){alert(e.message)}});
-$('start').addEventListener('click',async()=>{try{await api('/api/start','POST');await refresh()}catch(e){alert(e.message)}});
-$('pause').addEventListener('click',async()=>{try{await api('/api/pause','POST');await refresh()}catch(e){alert(e.message)}});
-$('finish').addEventListener('click',async()=>{try{await api('/api/finish','POST');await refresh()}catch(e){alert(e.message)}});
-$('saveResult').addEventListener('click',async()=>{try{await api('/api/finish','POST',{winner:$('winnerInput').value,reason:$('reasonInput').value});await refresh()}catch(e){alert(e.message)}});
-$('next').addEventListener('click',async()=>{try{await api('/api/next','POST');await refresh()}catch(e){alert(e.message)}});
-async function refresh(){try{render(await api('/api/state'));$('connection').textContent='● Servidor conectado';$('connection').style.color='var(--green)'}catch(e){$('connection').textContent='● Sin conexión';$('connection').style.color='var(--red)'}}
-setRole('view');refresh();setInterval(refresh,500);
-</script></body></html>
+const $=id=>document.getElementById(id);
+let lastState=null;
+async function api(path,method='GET',body=null){
+ const opts={method,headers:{'Content-Type':'application/json'}};
+ if(body)opts.body=JSON.stringify(body);
+ const res=await fetch(path,opts);
+ if(!res.ok)throw Error('Error de comunicación');
+ return res.json();
+}
+function fmt(s){
+ s=Math.max(0,Number(s)||0);
+ return [Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(v=>String(v).padStart(2,'0')).join(':');
+}
+function render(s){
+ lastState=s;
+ $('robot1').textContent=s.robot1;
+ $('robot2').textContent=s.robot2;
+ $('robotImage1').src=s.robot1_image||'/R_Amarillo.png';
+ $('robotImage2').src=s.robot2_image||'/R_Morado.png';
+ $('battleNumber').textContent='ARENA · BATALLA '+String(s.battle_number||1).padStart(2,'0');
+ $('attacks1').textContent=s.attacks1;
+ $('attacks2').textContent=s.attacks2;
+ $('time').textContent=fmt(s.elapsed_seconds);
+ $('status').textContent=s.status;
+ $('status').classList.toggle('running',s.phase==='running');
+ $('winner').hidden=!s.winner;
+ $('winner').textContent=s.winner?'🏆 GANADOR: '+s.winner+(s.reason?' · '+s.reason:''):'';
+ if(document.activeElement!==$('inputRobot1'))$('inputRobot1').value=s.robot1;
+ if(document.activeElement!==$('inputRobot2'))$('inputRobot2').value=s.robot2;
+}
+function toggleSettings(open){
+ $('settings').classList.toggle('open',open);
+ $('scrim').classList.toggle('open',open);
+}
+$('openSettings').addEventListener('click',()=>toggleSettings(true));
+$('closeSettings').addEventListener('click',()=>toggleSettings(false));
+$('scrim').addEventListener('click',()=>toggleSettings(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleSettings(false)});
+$('saveNames').addEventListener('click',async()=>{
+ try{render(await api('/api/config','POST',{robot1:$('inputRobot1').value,robot2:$('inputRobot2').value}));}
+ catch(e){alert('No se pudieron guardar los nombres.');}
+});
+$('start').addEventListener('click',async()=>{try{render(await api('/api/start','POST'));}catch(e){alert('No se pudo iniciar la batalla.');}});
+$('pause').addEventListener('click',async()=>{try{render(await api('/api/pause','POST'));}catch(e){alert('No se pudo pausar la batalla.');}});
+$('finish').addEventListener('click',async()=>{try{render(await api('/api/finish','POST'));}catch(e){alert('No se pudo finalizar la batalla.');}});
+$('saveResult').addEventListener('click',async()=>{
+ try{render(await api('/api/finish','POST',{winner:$('winnerInput').value,reason:$('reasonInput').value}));}
+ catch(e){alert('No se pudo guardar el resultado.');}
+});
+$('next').addEventListener('click',async()=>{
+ try{render(await api('/api/next','POST'));$('winnerInput').value='';$('reasonInput').value='';}
+ catch(e){alert('No se pudo preparar la siguiente batalla.');}
+});
+async function refresh(){
+ try{
+  render(await api('/api/state'));
+  $('connection').innerHTML='<i></i>SERVIDOR CONECTADO';
+ }catch(e){
+  $('connection').textContent='● SIN CONEXIÓN';
+  $('connection').style.color='#ff8fa7';
+ }
+}
+refresh();
+setInterval(refresh,500);
+</script>
+</body>
+</html>
