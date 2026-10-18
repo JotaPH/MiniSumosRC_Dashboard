@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MiniSumos RC · Contador de ataques</title>
+<style>
+:root{color-scheme:dark;--cyan:#49eaff;--white:#f5fbff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 20%,#10304a 0,#061321 45%,#020710 100%);color:var(--white);font-family:Arial,Helvetica,sans-serif;display:grid;place-items:center;padding:24px}
+.gear{position:fixed;z-index:10;right:clamp(12px,1.6vw,24px);top:clamp(12px,1.6vw,24px);width:48px;height:48px;display:grid;place-items:center;border:1px solid #78dfffaa;border-radius:14px;background:#061525e8;color:white;font-size:24px;cursor:pointer;box-shadow:0 4px 20px #0008;transition:.2s}
+.gear:hover{border-color:var(--cyan);box-shadow:0 0 22px #32dfff55;transform:rotate(25deg)}
+#quickMenu{position:fixed;z-index:20;top:calc(clamp(12px,1.6vw,24px) + 56px);right:clamp(12px,1.6vw,24px);width:min(250px,calc(100vw - 24px));padding:9px;display:flex;flex-direction:column;gap:7px;border:1px solid #50dfff90;border-radius:14px;background:#04101bf7;box-shadow:0 16px 45px #000b}
+#quickMenu[hidden]{display:none}#quickMenu button{min-height:48px;padding:12px;border:1px solid #31536f;border-radius:9px;background:#0a2135;color:#f4fbff;font-size:13px;font-weight:900;letter-spacing:1px;text-align:left;cursor:pointer}
+#quickMenu button:hover{background:linear-gradient(100deg,#19c9f4,#83f1ff);color:#03101a}
+.page{width:min(900px,100%);display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;padding:clamp(18px,4vw,42px);border:1px solid #50dfff55;border-radius:28px;background:linear-gradient(145deg,#071827ee,#030b15f5);box-shadow:0 25px 80px #0008,0 0 40px #00cfff12}
+.kicker{font-weight:900;font-size:12px;letter-spacing:4px;color:#80dfff}
+h1{margin:0;font-size:clamp(27px,5vw,48px);letter-spacing:2px;text-transform:uppercase}
+.robot{width:clamp(130px,25vw,240px);height:clamp(130px,25vw,240px);object-fit:contain;filter:drop-shadow(0 16px 25px #000a)}
+.name{font-size:clamp(24px,4vw,38px);font-weight:1000;text-transform:uppercase;text-shadow:0 0 18px var(--robot-color)}
+.count{font-size:clamp(76px,16vw,150px);line-height:.95;font-weight:1000;font-variant-numeric:tabular-nums;text-shadow:0 0 24px var(--robot-color);margin:6px 0}
+.unit{font-size:13px;font-weight:900;letter-spacing:4px;color:#9cb8cb}
+.buttons{width:min(620px,100%);display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+button.action{min-height:76px;border:1px solid #426782;border-radius:16px;background:#102b40;color:#fff;font-size:clamp(17px,3vw,24px);font-weight:1000;cursor:pointer;transition:transform .15s,filter .15s}
+button.action:active:not(:disabled){transform:scale(.98)}
+button.action.add{border:0;background:linear-gradient(110deg,#0bb9e7,#70efff);color:#03101a}
+button.action:disabled{opacity:.3;filter:grayscale(1);cursor:not-allowed}
+.phase{padding:10px 18px;border:1px solid #31536f;border-radius:999px;color:#b9d2e4;font-size:12px;font-weight:900;letter-spacing:2px}
+.phase.running{border-color:#42ffab;color:#7dffb7;box-shadow:0 0 18px #00ff8c20}
+.back{margin-top:4px;color:#91cfe9;text-decoration:none;font-weight:800;font-size:13px}.back:hover{color:#fff}
+@media(max-width:480px){body{padding:12px}.page{padding:24px 14px;border-radius:20px}.buttons{gap:9px}button.action{min-height:68px}}
+</style>
+</head>
+<body>
+<button class="gear" id="openSettings" type="button" aria-label="Abrir menú" aria-controls="quickMenu" aria-expanded="false" title="Menú">⚙</button>
+<nav id="quickMenu" aria-label="Opciones" hidden>
+<button type="button" data-view="attack1">ATAQUES 1</button>
+<button type="button" data-view="attack2">ATAQUES 2</button>
+<button type="button" data-view="control">PANEL DE CONTROL</button>
+</nav>
+<main class="page" style="--robot-color:{{ '#ffe34d' if robot == 1 else '#c28cff' }}">
+<div class="kicker">MINISUMOS RC · PANEL DE ATAQUES</div>
+<h1>Control de ataques</h1>
+<img class="robot" id="robotImage" src="{{ '/R_Amarillo.png' if robot == 1 else '/R_Morado.png' }}" alt="Robot">
+<div class="name" id="robotName">CARGANDO...</div>
+<div class="count" id="attackCount">0</div>
+<div class="unit">ATAQUES REGISTRADOS</div>
+<div class="phase" id="phase">CARGANDO ESTADO...</div>
+<div class="buttons">
+<button class="action add" id="addAttack" disabled>＋ AUMENTAR</button>
+<button class="action" id="removeAttack" disabled>− DISMINUIR</button>
+</div>
+<a class="back" href="/">← Volver a la arena principal</a>
+</main>
+<script>
+const ROBOT={{ robot }};
+const $=id=>document.getElementById(id);
+async function api(path,method='GET'){const res=await fetch(path,{method,headers:{'Content-Type':'application/json'}});const data=await res.json().catch(()=>({}));if(!res.ok)throw Error(data.error||'Error');return data}
+function render(s){
+ const one=ROBOT===1,name=one?s.robot1:s.robot2,count=one?s.attacks1:s.attacks2,image=one?s.robot1_image:s.robot2_image;
+ $('robotName').textContent=name;$('attackCount').textContent=count;$('robotImage').src=image|| (one?'/R_Amarillo.png':'/R_Morado.png');
+ document.querySelector('.page').style.setProperty('--robot-color',one?'#ffe34d': '#c28cff');
+ const running=s.phase==='running';$('addAttack').disabled=!running;$('removeAttack').disabled=!running;
+ $('phase').textContent=running?'BATALLA EN CURSO':s.phase==='paused'?'BATALLA PAUSADA':s.phase==='finished'?'BATALLA FINALIZADA':'ESPERANDO INICIO';
+ $('phase').classList.toggle('running',running);
+}
+async function refresh(){try{render(await api('/api/state'))}catch(e){$('phase').textContent='SIN CONEXIÓN'}}
+async function attack(action){try{render(await api(action==='add'?'/api/attack/'+ROBOT:'/api/attack/'+ROBOT+'/decrement','POST'))}catch(e){alert(e.message);refresh()}}
+$('addAttack').addEventListener('click',()=>attack('add'));$('removeAttack').addEventListener('click',()=>attack('remove'));
+function toggleQuickMenu(force){const menu=$('quickMenu'),gear=$('openSettings');const opening=typeof force==='boolean'?force:menu.hidden;menu.hidden=!opening;gear.setAttribute('aria-expanded',String(opening))}
+$('openSettings').addEventListener('click',e=>{e.stopPropagation();toggleQuickMenu()});
+$('quickMenu').querySelectorAll('button[data-view]').forEach(b=>b.addEventListener('click',()=>{toggleQuickMenu(false);if(b.dataset.view==='control'){location.href='/?panel=control'}else{location.href='/attacks/'+(b.dataset.view==='attack1'?'1':'2')}}));
+document.addEventListener('click',e=>{if(!$('quickMenu').hidden&&!$('quickMenu').contains(e.target)&&e.target!==$('openSettings'))toggleQuickMenu(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleQuickMenu(false)});
+refresh();setInterval(refresh,500);
+</script>
+</body>
+</html>
