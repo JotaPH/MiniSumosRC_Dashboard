@@ -25,6 +25,12 @@ def snapshot():
 def home():
     return render_template("index.html")
 
+@app.get("/attacks/<int:robot>")
+def attacks_page(robot):
+    if robot not in (1, 2):
+        return jsonify({"error": "Robot inválido"}), 404
+    return render_template("attacks.html", robot=robot)
+
 @app.get("/<path:filename>")
 def assets(filename):
     allowed = {"Fondo.jpg", "R_Amarillo.png", "R_Morado.png", "R_Rojo.png", "R_Verde.png"}
