@@ -45,7 +45,7 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
 </style>
 </head>
 <body>
-<div id="countdownOverlay" role="status" aria-live="assertive" hidden><div class="countdown-title">PREPARADOS PARA LA BATALLA</div><div class="countdown-number" id="countdownNumber">3</div><div class="countdown-subtitle">QUE COMIENCE EL COMBATE</div></div>
+<div id="countdownOverlay" role="status" aria-live="assertive" hidden><div class="countdown-title">PREPARADOS PARA LA BATALLA</div><div class="countdown-number" id="countdownNumber">3</div></div>
 <button class="fullscreen" id="fullscreenToggle" type="button" aria-label="Activar pantalla completa" title="Pantalla completa">⛶</button>
 <button class="gear" id="openSettings" type="button" aria-label="Abrir menú de batalla" aria-controls="quickMenu" aria-expanded="false" title="Menú de batalla">⚙</button>
 <nav id="quickMenu" aria-label="Opciones de batalla" hidden><button type="button" data-view="attack1">ATAQUES 1</button><button type="button" data-view="attack2">ATAQUES 2</button><button type="button" data-view="control">PANEL DE CONTROL</button></nav>
@@ -106,13 +106,11 @@ function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
 function playImpact(finalHit=false){
  try{
   const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
-  const ctx=new AudioCtx();const now=ctx.currentTime;
-  const osc=ctx.createOscillator(),gain=ctx.createGain();
-  osc.type='sine';osc.frequency.setValueAtTime(finalHit?105:145,now);osc.frequency.exponentialRampToValueAtTime(finalHit?38:52,now+.24);
-  gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(finalHit ? 0.85 : 0.58,now+.012);gain.gain.exponentialRampToValueAtTime(.0001,now+(finalHit?1.05:.38));
-  osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+(finalHit?1.08:.4));
-  const click=ctx.createOscillator(),clickGain=ctx.createGain();click.type='triangle';click.frequency.setValueAtTime(finalHit?220:260,now);click.frequency.exponentialRampToValueAtTime(70,now+.07);clickGain.gain.setValueAtTime(finalHit ? 0.18 : 0.12,now);clickGain.gain.exponentialRampToValueAtTime(.0001,now+.09);click.connect(clickGain);clickGain.connect(ctx.destination);click.start(now);click.stop(now+.1);
-  window.setTimeout(()=>ctx.close().catch(()=>{}),finalHit?1300:550);
+  const ctx=new AudioCtx();const now=ctx.currentTime;const duration=finalHit?1.35:.78;
+  const master=ctx.createGain();master.gain.setValueAtTime(.0001,now);master.gain.exponentialRampToValueAtTime(finalHit ? 0.32 : 0.22,now+.06);master.gain.setValueAtTime(finalHit?.32:.22,now+duration*.72);master.gain.exponentialRampToValueAtTime(.0001,now+duration);master.connect(ctx.destination);
+  const osc=ctx.createOscillator();const tone=ctx.createGain();osc.type='sawtooth';osc.frequency.setValueAtTime(finalHit?560:430,now);osc.frequency.exponentialRampToValueAtTime(finalHit?1050:680,now+duration*.82);tone.gain.setValueAtTime(.0001,now);tone.gain.exponentialRampToValueAtTime(.55,now+.045);tone.gain.setValueAtTime(.55,now+duration*.7);tone.gain.exponentialRampToValueAtTime(.0001,now+duration);osc.connect(tone);tone.connect(master);osc.start(now);osc.stop(now+duration);
+  const harmonic=ctx.createOscillator();const harmonicGain=ctx.createGain();harmonic.type='triangle';harmonic.frequency.setValueAtTime(finalHit?840:645,now);harmonic.frequency.exponentialRampToValueAtTime(finalHit?1450:980,now+duration*.82);harmonicGain.gain.setValueAtTime(.0001,now);harmonicGain.gain.exponentialRampToValueAtTime(finalHit ? 0.18 : 0.12,now+.06);harmonicGain.gain.setValueAtTime(finalHit?.18:.12,now+duration*.68);harmonicGain.gain.exponentialRampToValueAtTime(.0001,now+duration);harmonic.connect(harmonicGain);harmonicGain.connect(master);harmonic.start(now);harmonic.stop(now+duration);
+  window.setTimeout(()=>ctx.close().catch(()=>{}),Math.ceil((duration+.15)*1000));
  }catch(e){}
 }
 async function runCountdown(){
