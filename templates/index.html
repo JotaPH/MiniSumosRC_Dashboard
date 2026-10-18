@@ -25,6 +25,7 @@ body:after{content:"";position:fixed;inset:0;pointer-events:none;background:line
 .vs{font-size:clamp(54px,8.5vw,130px);font-weight:1000;font-style:italic;line-height:.9;color:#fff;letter-spacing:-3px;-webkit-text-stroke:4px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 18px #fff,0 0 42px #19cfff;margin-bottom:clamp(20px,4.5vh,58px);filter:drop-shadow(0 0 10px #00bfff);animation:pulse 3s ease-in-out infinite}
 .timer-label{font:1000 clamp(17px,1.8vw,25px) Arial,sans-serif;letter-spacing:clamp(1px,.25vw,4px);color:#fff;-webkit-text-stroke:.8px #000;paint-order:stroke fill;text-shadow:0 3px 0 #000,0 0 14px #43dcff,0 0 25px #178cff;margin-bottom:12px}
 .timer{font-family:Impact,'Arial Black',sans-serif;font-size:clamp(44px,6.7vw,100px);font-variant-numeric:tabular-nums;letter-spacing:1px;line-height:1;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 18px #43dcff,0 0 36px #178cff;white-space:nowrap}
+#countdownOverlay{position:fixed;inset:0;z-index:5000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,3vh,28px);padding:24px;text-align:center;background:radial-gradient(ellipse at center,#102c48f5 0,#020711f7 72%);backdrop-filter:blur(10px);opacity:1;visibility:visible;transition:opacity .25s,visibility .25s;font-family:Arial,Helvetica,sans-serif}#countdownOverlay[hidden]{display:none}.countdown-title{max-width:1000px;font-size:clamp(24px,5vw,64px);font-weight:1000;letter-spacing:clamp(2px,.7vw,9px);color:#f4fcff;text-shadow:0 4px 0 #000,0 0 24px #18cfff;animation:countTitleIn .5s ease-out both}.countdown-number{font-family:Impact,"Arial Black",sans-serif;font-size:clamp(130px,30vw,340px);font-weight:1000;line-height:.85;color:#fff;-webkit-text-stroke:4px #06101b;paint-order:stroke fill;text-shadow:0 8px 0 #000,0 0 22px #38dfff,0 0 70px #00aaff;animation:countPop .62s cubic-bezier(.15,.8,.2,1) both}.countdown-number.go{font-size:clamp(90px,20vw,230px);color:#7dffb4;text-shadow:0 7px 0 #000,0 0 28px #00ff8c,0 0 90px #00ff8c}.countdown-subtitle{font-size:clamp(12px,2vw,18px);font-weight:900;letter-spacing:clamp(3px,.7vw,8px);color:#9bc7df}@keyframes countPop{0%{opacity:0;transform:scale(1.65) rotate(-7deg);filter:blur(8px)}65%{opacity:1;transform:scale(.92) rotate(2deg);filter:blur(0)}100%{opacity:1;transform:scale(1) rotate(0)}}@keyframes countTitleIn{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
 .fullscreen{position:fixed;z-index:1000;left:clamp(12px,1.6vw,24px);top:clamp(12px,1.6vw,24px);width:42px;height:42px;display:grid;place-items:center;border:1px solid #78dfffaa;border-radius:12px;background:#061525d9;color:white;font:24px Arial,sans-serif;cursor:pointer;backdrop-filter:blur(8px);box-shadow:0 4px 20px #0008;transition:.2s}.fullscreen:hover{border-color:var(--cyan);box-shadow:0 0 22px #32dfff55}
 .gear{position:fixed;z-index:1000;right:clamp(12px,1.6vw,24px);top:clamp(12px,1.6vw,24px);width:48px;height:48px;display:grid;place-items:center;border:1px solid #78dfffaa;border-radius:14px;background:#061525d9;color:white;font-size:24px;cursor:pointer;backdrop-filter:blur(8px);box-shadow:0 4px 20px #0008;transition:.2s}.gear:hover{border-color:var(--cyan);box-shadow:0 0 22px #32dfff55;transform:rotate(25deg)}
 #quickMenu{position:fixed;z-index:3000;top:calc(clamp(12px,1.6vw,24px) + 56px);right:clamp(12px,1.6vw,24px);width:min(250px,calc(100vw - 24px));padding:9px;display:flex;flex-direction:column;gap:7px;border:1px solid #50dfff90;border-radius:14px;background:#04101bf7;box-shadow:0 16px 45px #000b;backdrop-filter:blur(18px);font-family:Arial,Helvetica,sans-serif}#quickMenu[hidden]{display:none}#quickMenu button{min-height:48px;padding:12px;border:1px solid #31536f;border-radius:9px;background:#0a2135;color:#f4fbff;font-size:13px;font-weight:900;letter-spacing:1px;text-align:left;cursor:pointer}#quickMenu button:hover,#quickMenu button:focus-visible{background:linear-gradient(100deg,#19c9f4,#83f1ff);color:#03101a;outline:none}#settings{position:fixed;z-index:2000;top:0;right:0;width:min(440px,100vw);height:100dvh;padding:22px;background:#04101bf7;border-left:1px solid #50dfff70;box-shadow:-20px 0 70px #0009;backdrop-filter:blur(18px);overflow:auto;transform:translateX(105%);visibility:hidden;pointer-events:auto;transition:transform .3s ease,visibility .3s;font-family:Arial,Helvetica,sans-serif}#settings.open{visibility:visible}#settings.open{transform:translateX(0)}
@@ -44,6 +45,7 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
 </style>
 </head>
 <body>
+<div id="countdownOverlay" role="status" aria-live="assertive" hidden><div class="countdown-title">PREPARADOS PARA LA BATALLA</div><div class="countdown-number" id="countdownNumber">3</div><div class="countdown-subtitle">QUE COMIENCE EL COMBATE</div></div>
 <button class="fullscreen" id="fullscreenToggle" type="button" aria-label="Activar pantalla completa" title="Pantalla completa">⛶</button>
 <button class="gear" id="openSettings" type="button" aria-label="Abrir menú de batalla" aria-controls="quickMenu" aria-expanded="false" title="Menú de batalla">⚙</button>
 <nav id="quickMenu" aria-label="Opciones de batalla" hidden><button type="button" data-view="attack1">ATAQUES 1</button><button type="button" data-view="attack2">ATAQUES 2</button><button type="button" data-view="control">PANEL DE CONTROL</button></nav>
@@ -99,7 +101,37 @@ function showTab(tab){const attacks=tab==='attacks';$('controlPanel').hidden=att
 function showView(view){toggleQuickMenu(false);if(view==='attack1'||view==='attack2'){window.location.href='/attacks/'+(view==='attack1'?'1':'2');return}showTab('control');toggleSettings(true)}
 $('quickMenu').querySelectorAll('button[data-view]').forEach(button=>button.addEventListener('click',()=>showView(button.dataset.view)));$('openSettings').addEventListener('click',e=>{e.stopPropagation();toggleQuickMenu()});$('closeSettings').addEventListener('click',()=>toggleSettings(false));$('scrim').addEventListener('click',()=>{toggleSettings(false);toggleQuickMenu(false)});$('tabControl').addEventListener('click',()=>showTab('control'));$('tabAttacks').addEventListener('click',()=>showTab('attacks'));document.addEventListener('click',e=>{if(!$('quickMenu').hidden&&!$('quickMenu').contains(e.target)&&e.target!==$('openSettings'))toggleQuickMenu(false)});document.addEventListener('keydown',e=>{if(e.key==='Escape'){toggleSettings(false);toggleQuickMenu(false)}});
 $('saveNames').addEventListener('click',async()=>{try{render(await api('/api/config','POST',{robot1:$('inputRobot1').value,robot2:$('inputRobot2').value}))}catch(e){alert(e.message||'No se pudieron guardar los nombres.')}});
-$('start').addEventListener('click',async()=>{try{render(await api('/api/start','POST'))}catch(e){alert(e.message||'No se pudo iniciar la batalla.')}});
+let countdownRunning=false;
+function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
+function playImpact(finalHit=false){
+ try{
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
+  const ctx=new AudioCtx();const now=ctx.currentTime;
+  const osc=ctx.createOscillator(),gain=ctx.createGain();
+  osc.type='sine';osc.frequency.setValueAtTime(finalHit?105:145,now);osc.frequency.exponentialRampToValueAtTime(finalHit?38:52,now+.24);
+  gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(finalHit?.85:.58,now+.012);gain.gain.exponentialRampToValueAtTime(.0001,now+(finalHit?1.05:.38));
+  osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+(finalHit?1.08:.4));
+  const click=ctx.createOscillator(),clickGain=ctx.createGain();click.type='triangle';click.frequency.setValueAtTime(finalHit?220:260,now);click.frequency.exponentialRampToValueAtTime(70,now+.07);clickGain.gain.setValueAtTime(finalHit?.18:.12,now);clickGain.gain.exponentialRampToValueAtTime(.0001,now+.09);click.connect(clickGain);clickGain.connect(ctx.destination);click.start(now);click.stop(now+.1);
+  window.setTimeout(()=>ctx.close().catch(()=>{}),finalHit?1300:550);
+ }catch(e){}
+}
+async function runCountdown(){
+ if(countdownRunning)return;
+ countdownRunning=true;$('start').disabled=true;
+ const overlay=$('countdownOverlay'),number=$('countdownNumber');
+ overlay.hidden=false;
+ try{
+  for(const n of [3,2,1]){
+   number.className='countdown-number';number.textContent=n;
+   void number.offsetWidth;playImpact(false);await wait(850);
+  }
+  number.className='countdown-number go';number.textContent='¡YA!';
+  void number.offsetWidth;playImpact(true);await wait(1050);
+  render(await api('/api/start','POST'));
+ }catch(e){alert(e.message||'No se pudo iniciar la batalla.')}
+ finally{overlay.hidden=true;countdownRunning=false;$('start').disabled=false}
+}
+$('start').addEventListener('click',runCountdown);
 $('pause').addEventListener('click',async()=>{try{render(await api('/api/pause','POST'))}catch(e){alert(e.message||'No se pudo pausar la batalla.')}});
 $('finish').addEventListener('click',async()=>{try{render(await api('/api/finish','POST'))}catch(e){alert(e.message||'No se pudo finalizar la batalla.')}});
 $('saveResult').addEventListener('click',async()=>{try{render(await api('/api/finish','POST',{winner:$('winnerInput').value,reason:$('reasonInput').value}))}catch(e){alert(e.message||'No se pudo guardar el resultado.')}});
