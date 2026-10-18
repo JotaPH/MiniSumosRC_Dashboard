@@ -110,7 +110,7 @@ function playImpact(finalHit=false){
   const now=ctx.currentTime;
   // Los tres pitidos usan la misma señal; el último dura 3 veces más y suena más fuerte.
   const duration=finalHit?1.32:.44;
-  const peak=finalHit?.46:.28;
+  const peak=finalHit ? 0.46 : 0.28;
   const osc=ctx.createOscillator(),gain=ctx.createGain();
   osc.type='sine';osc.frequency.setValueAtTime(880,now);
   gain.gain.setValueAtTime(.0001,now);
