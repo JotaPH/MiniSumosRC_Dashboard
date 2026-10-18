@@ -101,6 +101,6 @@ $('saveResult').addEventListener('click',async()=>{try{render(await api('/api/fi
 $('next').addEventListener('click',async()=>{try{render(await api('/api/next','POST'));$('winnerInput').value='';$('reasonInput').value='';showTab('control')}catch(e){alert(e.message||'No se pudo preparar la siguiente batalla.')}});
 async function attack(robot,action){try{render(await api(action==='add'?'/api/attack/'+robot:'/api/attack/'+robot+'/decrement','POST'))}catch(e){alert(e.message||'No se pudo actualizar el contador de ataques.')}}
 $('addAttack1').addEventListener('click',()=>attack(1,'add'));$('removeAttack1').addEventListener('click',()=>attack(1,'remove'));$('addAttack2').addEventListener('click',()=>attack(2,'add'));$('removeAttack2').addEventListener('click',()=>attack(2,'remove'));
-async function refresh(){try{render(await api('/api/state'))}catch(e){$('status').textContent='SIN CONEXIÓN';$('status').classList.remove('running','paused','finished','ready')}}refresh();setInterval(refresh,500);</script>
+async function refresh(){try{render(await api('/api/state'))}catch(e){$('status').textContent='SIN CONEXIÓN';$('status').classList.remove('running','paused','finished','ready')}}if(new URLSearchParams(window.location.search).get('panel')==='control'){showTab('control');toggleSettings(true)}refresh();setInterval(refresh,500);</script>
 </body>
 </html>
