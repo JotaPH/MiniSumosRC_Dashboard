@@ -82,7 +82,7 @@ function render(s){
  $('attacks1').textContent=s.attacks1;$('attacks2').textContent=s.attacks2;$('time').textContent=fmt(s.elapsed_seconds);
  const status=$('status'),phase=s.phase||'ready';status.textContent=phase==='running'?'EN CURSO':phase==='paused'?'PAUSADO':phase==='finished'?'FINALIZADO':'EN PROCESO';
  status.classList.remove('running','paused','finished','ready');status.classList.add(phase==='running'?'running':phase==='paused'?'paused':phase==='finished'?'finished':'ready');
- $('winner').hidden=!s.winner;$('winner').textContent=s.winner?'🏆 GANADOR: '+s.winner+(s.reason?' · '+s.reason):'';
+ $('winner').hidden=!s.winner;$('winner').textContent=s.winner?'🏆 GANADOR: '+s.winner+(s.reason?' · '+s.reason:''):'';
  $('attackName1').textContent=s.robot1;$('attackName2').textContent=s.robot2;$('panelAttacks1').textContent=s.attacks1+' ataques';$('panelAttacks2').textContent=s.attacks2+' ataques';
  $('attackCard1').className='attack-card '+colorClass(s.robot1_image,s.robot1);$('attackCard2').className='attack-card '+colorClass(s.robot2_image,s.robot2);
  ['addAttack1','removeAttack1','addAttack2','removeAttack2'].forEach(id=>$(id).disabled=phase!=='running');
