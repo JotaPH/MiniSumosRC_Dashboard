@@ -33,6 +33,8 @@ def add_attack(robot):
     if robot not in (1, 2):
         return jsonify({"error": "Robot inválido"}), 400
     with lock:
+        if state["phase"] != "running":
+            return jsonify({"error": "Solo se pueden registrar ataques durante una batalla en curso"}), 409
         key = "attacks1" if robot == 1 else "attacks2"
         state[key] += 1
         return jsonify(snapshot())
@@ -42,6 +44,8 @@ def remove_attack(robot):
     if robot not in (1, 2):
         return jsonify({"error": "Robot inválido"}), 400
     with lock:
+        if state["phase"] != "running":
+            return jsonify({"error": "Solo se pueden corregir ataques durante una batalla en curso"}), 409
         key = "attacks1" if robot == 1 else "attacks2"
         state[key] = max(0, state[key] - 1)
         return jsonify(snapshot())
