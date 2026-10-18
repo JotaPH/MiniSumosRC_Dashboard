@@ -108,23 +108,16 @@ function playImpact(finalHit=false){
   const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
   const ctx=new AudioCtx();if(ctx.state==='suspended')ctx.resume().catch(()=>{});
   const now=ctx.currentTime;
-  if(!finalHit){
-   const osc=ctx.createOscillator(),gain=ctx.createGain();
-   osc.type='sine';osc.frequency.setValueAtTime(880,now);
-   gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.28,now+.012);gain.gain.setValueAtTime(.28,now+.14);gain.gain.exponentialRampToValueAtTime(.0001,now+.22);
-   osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+.23);
-   window.setTimeout(()=>ctx.close().catch(()=>{}),350);
-   return;
-  }
-  // Señal final tipo bocina de salida: dos tonos graves, fuertes y sostenidos.
-  const duration=1.45,master=ctx.createGain();
-  master.gain.setValueAtTime(.0001,now);master.gain.exponentialRampToValueAtTime(.72,now+.035);master.gain.setValueAtTime(.72,now+1.05);master.gain.exponentialRampToValueAtTime(.0001,now+duration);master.connect(ctx.destination);
-  [[440,.55],[554.37,.38],[880,.09]].forEach(([frequency,level])=>{
-   const osc=ctx.createOscillator(),gain=ctx.createGain();
-   osc.type='sawtooth';osc.frequency.setValueAtTime(frequency,now);osc.frequency.setValueAtTime(frequency*1.025,now+.12);
-   gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(level,now+.025);gain.gain.setValueAtTime(level,now+1.02);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
-   osc.connect(gain);gain.connect(master);osc.start(now);osc.stop(now+duration);
-  });
+  // Los tres pitidos usan la misma señal; el último dura 3 veces más y suena más fuerte.
+  const duration=finalHit?1.32:.44;
+  const peak=finalHit?.46:.28;
+  const osc=ctx.createOscillator(),gain=ctx.createGain();
+  osc.type='sine';osc.frequency.setValueAtTime(880,now);
+  gain.gain.setValueAtTime(.0001,now);
+  gain.gain.exponentialRampToValueAtTime(peak,now+.018);
+  gain.gain.setValueAtTime(peak,now+duration*.72);
+  gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
+  osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+duration+.02);
   window.setTimeout(()=>ctx.close().catch(()=>{}),Math.ceil((duration+.2)*1000));
  }catch(e){}
 }
@@ -136,10 +129,10 @@ async function runCountdown(){
  try{
   for(const n of [3,2,1]){
    number.className='countdown-number';number.textContent=n;
-   void number.offsetWidth;playImpact(false);await wait(850);
+   void number.offsetWidth;playImpact(false);await wait(1700);
   }
   number.className='countdown-number go';number.textContent='¡YA!';
-  void number.offsetWidth;playImpact(true);await wait(1050);
+  void number.offsetWidth;playImpact(true);await wait(1550);
   render(await api('/api/start','POST'));
  }catch(e){alert(e.message||'No se pudo iniciar la batalla.')}
  finally{overlay.hidden=true;countdownRunning=false;$('start').disabled=false}
