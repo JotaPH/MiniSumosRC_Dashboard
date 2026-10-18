@@ -108,11 +108,12 @@ function playImpact(finalHit=false){
   const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
   const ctx=new AudioCtx();if(ctx.state==='suspended')ctx.resume().catch(()=>{});
   const now=ctx.currentTime;
-  // Los tres pitidos usan la misma señal; el último dura 3 veces más y suena más fuerte.
+  // Pitidos más graves; la señal final baja un 30% respecto al tono original.
   const duration=finalHit?1.32:.44;
   const peak=finalHit ? 0.46 : 0.28;
+  const frequency=finalHit ? 616 : 748;
   const osc=ctx.createOscillator(),gain=ctx.createGain();
-  osc.type='sine';osc.frequency.setValueAtTime(880,now);
+  osc.type='sine';osc.frequency.setValueAtTime(frequency,now);
   gain.gain.setValueAtTime(.0001,now);
   gain.gain.exponentialRampToValueAtTime(peak,now+.018);
   gain.gain.setValueAtTime(peak,now+duration*.72);
@@ -129,10 +130,10 @@ async function runCountdown(){
  try{
   for(const n of [3,2,1]){
    number.className='countdown-number';number.textContent=n;
-   void number.offsetWidth;playImpact(false);await wait(1700);
+   void number.offsetWidth;playImpact(false);await wait(650);
   }
   number.className='countdown-number go';number.textContent='¡YA!';
-  void number.offsetWidth;playImpact(true);await wait(1550);
+  void number.offsetWidth;playImpact(true);await wait(1400);
   render(await api('/api/start','POST'));
  }catch(e){alert(e.message||'No se pudo iniciar la batalla.')}
  finally{overlay.hidden=true;countdownRunning=false;$('start').disabled=false}
