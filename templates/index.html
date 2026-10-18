@@ -108,10 +108,10 @@ function playImpact(finalHit=false){
   const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
   const ctx=new AudioCtx();if(ctx.state==='suspended')ctx.resume().catch(()=>{});
   const now=ctx.currentTime;
-  // Pitidos más graves; la señal final baja un 30% respecto al tono original.
-  const duration=finalHit?1.32:.44;
+  // Pitidos cortos a 440 Hz durante 300 ms; señal final a 879 Hz durante 1 s.
+  const duration=finalHit?1.0:.3;
   const peak=finalHit ? 0.46 : 0.28;
-  const frequency=finalHit ? 616 : 748;
+  const frequency=finalHit ? 879 : 440;
   const osc=ctx.createOscillator(),gain=ctx.createGain();
   osc.type='sine';osc.frequency.setValueAtTime(frequency,now);
   gain.gain.setValueAtTime(.0001,now);
@@ -133,7 +133,7 @@ async function runCountdown(){
    void number.offsetWidth;playImpact(false);await wait(650);
   }
   number.className='countdown-number go';number.textContent='¡YA!';
-  void number.offsetWidth;playImpact(true);await wait(1400);
+  void number.offsetWidth;playImpact(true);await wait(1100);
   render(await api('/api/start','POST'));
  }catch(e){alert(e.message||'No se pudo iniciar la batalla.')}
  finally{overlay.hidden=true;countdownRunning=false;$('start').disabled=false}
