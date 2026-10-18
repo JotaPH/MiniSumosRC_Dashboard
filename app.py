@@ -23,7 +23,7 @@ def snapshot():
 def home():
     return render_template("index.html")
 
-@app.get("/api/state")
+@app.get("/<path:filename>")\ndef assets(filename):\n    allowed = {"Fondo.jpg", "R_Amarillo.png", "R_Morado.png", "R_Rojo.png", "R_Verde.png"}\n    if filename not in allowed:\n        return jsonify({"error": "Recurso no encontrado"}), 404\n    return send_from_directory(app.root_path, filename)\n\n@app.get("/api/state")
 def get_state():
     with lock:
         return jsonify(snapshot())
@@ -98,9 +98,17 @@ def finish_battle():
 def next_battle():
     payload = request.get_json(silent=True) or {}
     with lock:
+        next_number = state["battle_number"] + 1
+        pairs = [
+            ("/R_Amarillo.png", "/R_Morado.png", "AMARILLO", "MORADO"),
+            ("/R_Rojo.png", "/R_Verde.png", "ROJO", "VERDE")
+        ]
+        pair = pairs[(next_number - 1) % 2]
         state.update({
-            "robot1": str(payload.get("robot1", "BETA")).strip()[:40] or "BETA",
-            "robot2": str(payload.get("robot2", "OMEGA")).strip()[:40] or "OMEGA",
+            "robot1": str(payload.get("robot1", pair[2])).strip()[:40] or pair[2],
+            "robot2": str(payload.get("robot2", pair[3])).strip()[:40] or pair[3],
+            "robot1_image": pair[0], "robot2_image": pair[1],
+            "battle_number": next_number,
             "attacks1": 0, "attacks2": 0, "elapsed_seconds": 0,
             "started_at": None, "winner": "", "reason": "",
             "status": "PREPARADOS PARA LA BATALLA", "phase": "ready"
