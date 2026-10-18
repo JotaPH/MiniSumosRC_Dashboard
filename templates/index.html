@@ -39,7 +39,7 @@ $('start').addEventListener('click',async()=>{try{await api('/api/start','POST')
 $('pause').addEventListener('click',async()=>{try{await api('/api/pause','POST');await refresh()}catch(e){alert(e.message)}});
 $('finish').addEventListener('click',async()=>{try{await api('/api/finish','POST');await refresh()}catch(e){alert(e.message)}});
 $('saveResult').addEventListener('click',async()=>{try{await api('/api/finish','POST',{winner:$('winnerInput').value,reason:$('reasonInput').value});await refresh()}catch(e){alert(e.message)}});
-$('next').addEventListener('click',async()=>{try{await api('/api/next','POST',{robot1:$('inputRobot1').value,robot2:$('inputRobot2').value});await refresh()}catch(e){alert(e.message)}});
+$('next').addEventListener('click',async()=>{try{await api('/api/next','POST');await refresh()}catch(e){alert(e.message)}});
 async function refresh(){try{render(await api('/api/state'));$('connection').textContent='● Servidor conectado';$('connection').style.color='var(--green)'}catch(e){$('connection').textContent='● Sin conexión';$('connection').style.color='var(--red)'}}
 setRole('view');refresh();setInterval(refresh,500);
 </script></body></html>
