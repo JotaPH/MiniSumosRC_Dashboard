@@ -55,6 +55,9 @@ button.action:disabled{opacity:.3;filter:grayscale(1);cursor:not-allowed}
 <script>
 const ROBOT={{ robot }};
 const $=id=>document.getElementById(id);
+async function toggleFullscreen(){try{if(!document.fullscreenElement){await document.documentElement.requestFullscreen()}else{await document.exitFullscreen()}}catch(e){alert('El navegador no permitió la pantalla completa. Prueba de nuevo con el botón ⛶.')}}
+$('fullscreenToggle').addEventListener('click',toggleFullscreen);
+document.addEventListener('fullscreenchange',()=>{const active=!!document.fullscreenElement;$('fullscreenToggle').textContent=active?'⤢':'⛶';$('fullscreenToggle').title=active?'Salir de pantalla completa':'Pantalla completa';$('fullscreenToggle').setAttribute('aria-label',active?'Salir de pantalla completa':'Activar pantalla completa')});
 async function api(path,method='GET'){const res=await fetch(path,{method,headers:{'Content-Type':'application/json'}});const data=await res.json().catch(()=>({}));if(!res.ok)throw Error(data.error||'Error');return data}
 function render(s){
  const one=ROBOT===1,name=one?s.robot1:s.robot2,count=one?s.attacks1:s.attacks2,image=one?s.robot1_image:s.robot2_image;
