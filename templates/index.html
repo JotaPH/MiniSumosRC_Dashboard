@@ -110,7 +110,7 @@ function playImpact(finalHit=false){
   const now=ctx.currentTime;
   // Pitidos cortos a 440 Hz durante 300 ms; señal final a 879 Hz durante 1 s.
   const duration=finalHit?1.0:.3;
-  const peak=finalHit ? 0.46 : 0.28;
+  const peak=finalHit ? 0.23 : 0.14;
   const frequency=finalHit ? 879 : 440;
   const osc=ctx.createOscillator(),gain=ctx.createGain();
   osc.type='sine';osc.frequency.setValueAtTime(frequency,now);
@@ -127,13 +127,18 @@ async function runCountdown(){
  countdownRunning=true;$('start').disabled=true;
  const overlay=$('countdownOverlay'),number=$('countdownNumber');
  overlay.hidden=false;
+ const startedAt=performance.now();
+ const waitUntil=async(target)=>{const remaining=target-performance.now();if(remaining>0)await wait(remaining)};
  try{
-  for(const n of [3,2,1]){
-   number.className='countdown-number';number.textContent=n;
-   void number.offsetWidth;playImpact(false);await wait(650);
+  for(let i=0;i<3;i++){
+   await waitUntil(startedAt+i*1000);
+   number.className='countdown-number';number.textContent=[3,2,1][i];
+   void number.offsetWidth;playImpact(false);
   }
+  await waitUntil(startedAt+3000);
   number.className='countdown-number go';number.textContent='¡YA!';
-  void number.offsetWidth;playImpact(true);await wait(1100);
+  void number.offsetWidth;playImpact(true);
+  await waitUntil(startedAt+4000);
   render(await api('/api/start','POST'));
  }catch(e){alert(e.message||'No se pudo iniciar la batalla.')}
  finally{overlay.hidden=true;countdownRunning=false;$('start').disabled=false}
