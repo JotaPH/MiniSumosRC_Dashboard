@@ -7,7 +7,7 @@
 <style>
 :root{--cyan:#49eaff;--white:#f5fbff}
 *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0}
-body{overflow:hidden;background:#030914 url('/Fondo.jpg') center center/cover no-repeat fixed;color:var(--white);font-family:Impact,'Arial Black',system-ui,sans-serif}
+body{overflow:hidden;background:#030914 url('/Imagenes/Fondo.jpg') center center/cover no-repeat fixed;color:var(--white);font-family:Impact,'Arial Black',system-ui,sans-serif}
 body:after{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(90deg,#02081455,#02081408 50%,#02081455),linear-gradient(0deg,#02081470,transparent 35%,#02081435);z-index:0}
 #arena{position:relative;isolation:isolate;width:100%;height:100dvh;min-height:100vh;display:flex;flex-direction:column;padding:clamp(10px,1.7vh,22px) clamp(10px,2vw,32px)}
 .status-wrap{position:relative;z-index:2;display:flex;justify-content:center;align-items:center;min-height:clamp(42px,7vh,76px);padding:4px 0}
@@ -46,8 +46,8 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
 /* Pantallas temporales de anuncio: ganador y próxima batalla */
 .announcement{position:fixed;inset:0;z-index:6000;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:clamp(18px,4vw,56px);background-position:center;background-size:cover;background-repeat:no-repeat;text-align:center;font-family:Impact,'Arial Black',system-ui,sans-serif}
 .announcement[hidden]{display:none}
-#winnerAnnouncement{background-image:radial-gradient(ellipse at 50% 45%,#042b2a45 0,#02071145 58%,#020711a8 100%),url('/Fondo_Ganar.jpg')}
-#nextAnnouncement{background-image:linear-gradient(90deg,#02071145,#02071110 50%,#02071145),url('/Fondo_Proxima.jpg')}
+#winnerAnnouncement{background-image:radial-gradient(ellipse at 50% 45%,#042b2a45 0,#02071145 58%,#020711a8 100%),url('/Imagenes/Fondo_Ganar.jpg')}
+#nextAnnouncement{background-image:linear-gradient(90deg,#02071145,#02071110 50%,#02071145),url('/Imagenes/Fondo_Proxima.jpg')}
 .announcement-content{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,2.2vh,28px);min-height:0}
 #winnerAnnouncement .announcement-content{display:grid;grid-template-columns:minmax(260px,.95fr) minmax(0,1.2fr);grid-template-rows:auto auto 1fr;align-content:center;align-items:center;column-gap:clamp(28px,5vw,90px);row-gap:clamp(10px,1.8vh,20px);text-align:left;padding:clamp(42px,7vh,82px) clamp(14px,5vw,76px) 0}
 #winnerAnnouncement .winner-heading{font:1000 italic clamp(48px,8vw,116px)/.9 Impact,'Arial Black',sans-serif;letter-spacing:clamp(1px,.3vw,5px);color:#ffe94d;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000;text-align:left}
@@ -84,18 +84,18 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
 </head>
 <body>
 <div id="countdownOverlay" role="status" aria-live="assertive" hidden><div class="countdown-title">PREPARADOS PARA LA BATALLA</div><div class="countdown-number" id="countdownNumber">3</div></div>
-<section class="announcement" id="winnerAnnouncement" hidden aria-live="polite"><div class="announcement-content"><img class="winner-robot-image" id="winnerRobotImage" src="/R_Amarillo.png" alt="Robot ganador"><div class="winner-details"><div class="winner-heading">GANADOR</div><div class="announcement-name" id="winnerAnnouncementName">ALPHA</div></div><div class="winner-data-panel"><div class="winner-data-cell"><span class="winner-data-label">TIEMPO</span><span class="winner-duration" id="winnerAnnouncementTime">00:00:00</span></div><div class="winner-data-cell"><span class="winner-data-label">MOTIVO</span><span class="announcement-reason" id="winnerAnnouncementReason">DECISIÓN ARBITRAL</span></div></div></div></section>
-<section class="announcement" id="noBattlesAnnouncement" hidden aria-live="polite"><div class="no-battles-content"><div class="no-battles-message">NO HAY BATALLAS<br>PROGRAMADAS AÚN</div><img class="no-battles-image" src="/No_Batalla.png" alt="No hay batallas programadas"></div></section>
-<section class="announcement" id="nextAnnouncement" hidden aria-live="polite"><div class="announcement-content"><div class="announcement-title">PRÓXIMA BATALLA</div><div class="next-matchup"><div class="next-robot"><img id="nextRobotImage1" src="/R_Rojo.png" alt="Primer robot de la próxima batalla"><div class="next-robot-name" id="nextRobotName1">ROJO</div></div><div class="next-vs">VS</div><div class="next-robot"><img id="nextRobotImage2" src="/R_Verde.png" alt="Segundo robot de la próxima batalla"><div class="next-robot-name" id="nextRobotName2">VERDE</div></div></div></div></section>
+<section class="announcement" id="winnerAnnouncement" hidden aria-live="polite"><div class="announcement-content"><img class="winner-robot-image" id="winnerRobotImage" src="/Imagenes/R_Amarillo.png" alt="Robot ganador"><div class="winner-details"><div class="winner-heading">GANADOR</div><div class="announcement-name" id="winnerAnnouncementName">ALPHA</div></div><div class="winner-data-panel"><div class="winner-data-cell"><span class="winner-data-label">TIEMPO</span><span class="winner-duration" id="winnerAnnouncementTime">00:00:00</span></div><div class="winner-data-cell"><span class="winner-data-label">MOTIVO</span><span class="announcement-reason" id="winnerAnnouncementReason">DECISIÓN ARBITRAL</span></div></div></div></section>
+<section class="announcement" id="noBattlesAnnouncement" hidden aria-live="polite"><div class="no-battles-content"><div class="no-battles-message">NO HAY BATALLAS<br>PROGRAMADAS AÚN</div><img class="no-battles-image" src="/Imagenes/No_Batalla.png" alt="No hay batallas programadas"></div></section>
+<section class="announcement" id="nextAnnouncement" hidden aria-live="polite"><div class="announcement-content"><div class="announcement-title">PRÓXIMA BATALLA</div><div class="next-matchup"><div class="next-robot"><img id="nextRobotImage1" src="/Imagenes/R_Rojo.png" alt="Primer robot de la próxima batalla"><div class="next-robot-name" id="nextRobotName1">ROJO</div></div><div class="next-vs">VS</div><div class="next-robot"><img id="nextRobotImage2" src="/Imagenes/R_Verde.png" alt="Segundo robot de la próxima batalla"><div class="next-robot-name" id="nextRobotName2">VERDE</div></div></div></div></section>
 <button class="fullscreen" id="fullscreenToggle" type="button" aria-label="Activar pantalla completa" title="Pantalla completa">⛶</button>
 <button class="gear" id="openSettings" type="button" aria-label="Abrir menú de batalla" aria-controls="quickMenu" aria-expanded="false" title="Menú de batalla">⚙</button>
 <nav id="quickMenu" aria-label="Opciones de batalla" hidden><button type="button" data-view="attack1">ATAQUES 1</button><button type="button" data-view="attack2">ATAQUES 2</button><button type="button" data-view="control">PANEL DE CONTROL</button></nav>
 <div id="arena">
  <div class="status-wrap"><div class="status ready" id="status">EN PROCESO</div></div>
  <main class="matchup">
-  <section class="combatant left" id="combatant1" style="--robot-color:#ffe34d"><img class="robot-art" id="robotImage1" src="/R_Amarillo.png" alt="Robot izquierdo"><div class="robot-name" id="robot1">AMARILLO</div><div class="attack-score"><span>ATAQUES</span><strong id="attacks1">0</strong></div></section>
+  <section class="combatant left" id="combatant1" style="--robot-color:#ffe34d"><img class="robot-art" id="robotImage1" src="/Imagenes/R_Amarillo.png" alt="Robot izquierdo"><div class="robot-name" id="robot1">AMARILLO</div><div class="attack-score"><span>ATAQUES</span><strong id="attacks1">0</strong></div></section>
   <section class="center"><div class="vs">VS</div><div class="timer-label">TIEMPO</div><div class="timer" id="time">00:00:00</div></section>
-  <section class="combatant right" id="combatant2" style="--robot-color:#c28cff"><img class="robot-art" id="robotImage2" src="/R_Morado.png" alt="Robot derecho"><div class="robot-name" id="robot2">MORADO</div><div class="attack-score"><span>ATAQUES</span><strong id="attacks2">0</strong></div></section>
+  <section class="combatant right" id="combatant2" style="--robot-color:#c28cff"><img class="robot-art" id="robotImage2" src="/Imagenes/R_Morado.png" alt="Robot derecho"><div class="robot-name" id="robot2">MORADO</div><div class="attack-score"><span>ATAQUES</span><strong id="attacks2">0</strong></div></section>
  </main>
 </div><div id="scrim" onclick="toggleSettings(false)" aria-hidden="true"></div>
 <aside id="settings" aria-label="Parámetros de batalla">
@@ -126,7 +126,7 @@ function robotColor(image,name){const src=String(image||'').toLowerCase(),n=Stri
 function colorClass(image,name){const v=(String(image||'')+' '+String(name||'')).toLowerCase();if(v.includes('amarillo'))return'yellow';if(v.includes('morado'))return'purple';if(v.includes('rojo'))return'red';if(v.includes('verde'))return'green';return'purple'}
 function render(s){
  $('robot1').textContent=s.robot1;$('robot2').textContent=s.robot2;
- $('robotImage1').src=s.robot1_image||'/R_Amarillo.png';$('robotImage2').src=s.robot2_image||'/R_Morado.png';
+ $('robotImage1').src=s.robot1_image||'/Imagenes/R_Amarillo.png';$('robotImage2').src=s.robot2_image||'/Imagenes/R_Morado.png';
  $('combatant1').style.setProperty('--robot-color',robotColor(s.robot1_image,s.robot1));$('combatant2').style.setProperty('--robot-color',robotColor(s.robot2_image,s.robot2));
  $('attacks1').textContent=s.attacks1;$('attacks2').textContent=s.attacks2;$('time').textContent=fmt(s.elapsed_seconds);
  const status=$('status'),phase=s.phase||'ready';status.textContent=phase==='running'?'EN CURSO':phase==='paused'?'PAUSADO':phase==='finished'?'FINALIZADO':'EN PROCESO';
@@ -153,7 +153,7 @@ alarmButton.addEventListener('click',async()=>{
  }
  try{
   if(!alarmAudio){
-   alarmAudio=new Audio('/audio_final.m4a');
+   alarmAudio=new Audio('/Audios/audio_final.m4a');
    alarmAudio.preload='auto';
    alarmAudio.addEventListener('ended',()=>{alarmButton.textContent='🚨 ALARM'});
   }
@@ -176,7 +176,7 @@ async function runCountdown(){
  number.textContent='3';
  void number.offsetWidth;
  overlay.hidden=false;
- const audio=new Audio('/videoplayback.m4a');
+ const audio=new Audio('/Audios/videoplayback.m4a');
  audio.preload='auto';
  audio.currentTime=0;
  const waitUntil=async(target)=>{const remaining=target-performance.now();if(remaining>0)await wait(remaining)};
@@ -206,14 +206,14 @@ function showWinnerAnnouncement(s){
  const winner=String(s.winner||$('winnerInput').value||'').trim();
  if(!winner){alert('Escribe el nombre del robot ganador en el panel de control.');return}
  const reason=String(s.reason||$('reasonInput').value||'').trim();
- let winnerImage=s.robot1_image||'/R_Amarillo.png';
- if(winner.toLocaleLowerCase()===String(s.robot2||'').trim().toLocaleLowerCase())winnerImage=s.robot2_image||'/R_Morado.png';
+ let winnerImage=s.robot1_image||'/Imagenes/R_Amarillo.png';
+ if(winner.toLocaleLowerCase()===String(s.robot2||'').trim().toLocaleLowerCase())winnerImage=s.robot2_image||'/Imagenes/R_Morado.png';
  else if(winner.toLocaleLowerCase()!==String(s.robot1||'').trim().toLocaleLowerCase()){
   const normalized=winner.toLocaleLowerCase();
-  if(normalized.includes('verde'))winnerImage='/R_Verde.png';
-  else if(normalized.includes('rojo'))winnerImage='/R_Rojo.png';
-  else if(normalized.includes('morado'))winnerImage='/R_Morado.png';
-  else if(normalized.includes('amarillo'))winnerImage='/R_Amarillo.png';
+  if(normalized.includes('verde'))winnerImage='/Imagenes/R_Verde.png';
+  else if(normalized.includes('rojo'))winnerImage='/Imagenes/R_Rojo.png';
+  else if(normalized.includes('morado'))winnerImage='/Imagenes/R_Morado.png';
+  else if(normalized.includes('amarillo'))winnerImage='/Imagenes/R_Amarillo.png';
  }
  $('winnerRobotImage').src=winnerImage;
  $('winnerRobotImage').alt='Robot ganador: '+winner;
@@ -228,8 +228,8 @@ function showWinnerAnnouncement(s){
 function showNextAnnouncement(s){
  $('nextRobotName1').textContent=s.robot1||'POR DEFINIR';
  $('nextRobotName2').textContent=s.robot2||'POR DEFINIR';
- $('nextRobotImage1').src=s.robot1_image||'/R_Rojo.png';
- $('nextRobotImage2').src=s.robot2_image||'/R_Verde.png';
+ $('nextRobotImage1').src=s.robot1_image||'/Imagenes/R_Rojo.png';
+ $('nextRobotImage2').src=s.robot2_image||'/Imagenes/R_Verde.png';
  $('nextRobotImage1').alt='Robot: '+(s.robot1||'por definir');
  $('nextRobotImage2').alt='Robot: '+(s.robot2||'por definir');
  $('winnerAnnouncement').hidden=true;
