@@ -46,22 +46,25 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
 /* Pantallas temporales de anuncio: ganador y próxima batalla */
 .announcement{position:fixed;inset:0;z-index:6000;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:clamp(18px,4vw,56px);background-position:center;background-size:cover;background-repeat:no-repeat;text-align:center;font-family:Impact,'Arial Black',system-ui,sans-serif}
 .announcement[hidden]{display:none}
-#winnerAnnouncement{background-image:linear-gradient(90deg,#02071155,#02071120 50%,#02071155),url('/Fondo_Ganar.jpg')}
+#winnerAnnouncement{background-image:radial-gradient(ellipse at 50% 45%,#042b2a45 0,#02071145 58%,#020711a8 100%),url('/Fondo_Ganar.jpg')}
 #nextAnnouncement{background-image:linear-gradient(90deg,#02071145,#02071110 50%,#02071145),url('/Fondo_Proxima.jpg')}
 .announcement-content{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,2.2vh,28px);min-height:0}
-#winnerAnnouncement .announcement-content{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.9fr);grid-template-rows:auto 1fr;column-gap:clamp(18px,4vw,64px);text-align:left}
-#winnerAnnouncement .announcement-title{grid-column:1/-1;text-align:center}
-.winner-details{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:clamp(12px,2.5vh,28px);min-width:0}
-.winner-details .announcement-title{grid-column:auto;text-align:left}
-.winner-duration{font:1000 clamp(22px,3.5vw,48px)/1 Arial,Helvetica,sans-serif;color:#fff;text-shadow:0 3px 6px #000,0 0 18px #00dfff}
-.winner-robot-image{grid-column:2;grid-row:2;width:100%;height:min(74vh,760px);max-width:none;justify-self:center;align-self:center}
-#winnerAnnouncement .announcement-name{font-size:clamp(42px,6.6vw,100px)}
-#winnerAnnouncement .announcement-reason{max-width:100%;font-size:clamp(18px,2.4vw,34px);padding:0;background:transparent;border:0}
-@media(max-width:700px){ #winnerAnnouncement .announcement-content{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:8px}#winnerAnnouncement .announcement-title{font-size:clamp(25px,7vw,44px)}#winnerAnnouncement .announcement-name{font-size:clamp(28px,7.5vw,50px);-webkit-text-stroke:1.5px #000}#winnerAnnouncement .winner-robot-image{width:100%;height:min(60vh,430px)}.winner-duration{font-size:clamp(17px,4vw,26px)}#winnerAnnouncement .announcement-reason{font-size:clamp(15px,3.8vw,22px);padding:0}}
+#winnerAnnouncement .announcement-content{display:grid;grid-template-columns:minmax(140px,.62fr) minmax(0,1.7fr);grid-template-rows:auto auto 1fr;align-content:center;align-items:center;column-gap:clamp(20px,4vw,70px);row-gap:clamp(10px,2vh,22px);text-align:left;padding:clamp(38px,6vh,76px) clamp(10px,4vw,64px) 0}
+.winner-top-icons{position:absolute;top:clamp(12px,2vw,28px);left:clamp(12px,2vw,28px);right:clamp(12px,2vw,28px);display:flex;align-items:center;justify-content:space-between;pointer-events:none}
+.winner-top-icons button,.winner-top-icons span{width:44px;height:44px;display:grid;place-items:center;border:1px solid #ffffff35;border-radius:12px;background:#031018b8;color:#fff;font:26px Arial,sans-serif;text-shadow:0 0 12px #fff;pointer-events:auto}
+.winner-top-icons button{cursor:pointer}.winner-top-icons span{color:#35eaff;text-shadow:0 0 8px #00dfff,0 0 22px #00bfff}
+#winnerAnnouncement .winner-heading{grid-column:2;grid-row:1;font:1000 clamp(27px,4vw,56px)/.95 Arial,Helvetica,sans-serif;font-style:italic;letter-spacing:clamp(2px,.5vw,7px);color:#ffe94d;text-shadow:0 0 8px #ffe94d,0 0 24px #ffb300;text-align:left}
+.winner-robot-image{grid-column:1;grid-row:1/3;width:100%;height:min(46vh,420px);object-fit:contain;filter:drop-shadow(0 0 12px #00dfff) drop-shadow(0 0 30px #008cff);animation:float 4.5s ease-in-out infinite}
+.winner-details{grid-column:2;grid-row:2;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:clamp(12px,2.5vh,28px);min-width:0}
+#winnerAnnouncement .announcement-name{font:1000 italic clamp(48px,8vw,116px)/.9 Impact,'Arial Black',sans-serif;color:#dffaff;-webkit-text-stroke:1px #9eefff;text-shadow:0 0 8px #00dfff,0 0 22px #008cff,0 0 48px #005dff;letter-spacing:clamp(1px,.3vw,5px)}
+.winner-data-panel{grid-column:1/-1;grid-row:3;width:min(100%,1050px);justify-self:center;align-self:start;display:grid;grid-template-columns:1fr 1fr;position:relative;margin-top:clamp(6px,2vh,24px);background:#031313bd;border:1px solid #3bffb05c;clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);box-shadow:0 0 25px #00ff9d12,inset 0 0 20px #00ff9d0b}
+.winner-data-cell{min-width:0;padding:clamp(14px,2.4vh,26px) clamp(12px,3vw,36px);display:flex;flex-direction:column;justify-content:center;gap:8px}
+.winner-data-cell+ .winner-data-cell{border-left:1px solid #54ffbd58}
+.winner-data-label{font:900 clamp(12px,1.5vw,18px)/1 Arial,sans-serif;letter-spacing:clamp(2px,.4vw,5px);color:#80dcb8}
+.winner-duration{font:1000 clamp(25px,4.2vw,54px)/1 'Courier New',monospace;font-variant-numeric:tabular-nums;color:#f4ffff;text-shadow:0 0 12px #00dfff;white-space:nowrap}
+.announcement-reason{font:900 clamp(15px,2.2vw,29px)/1.15 Arial,Helvetica,sans-serif;color:#fff;text-shadow:0 0 12px #00dfff;overflow-wrap:anywhere;text-transform:uppercase}
 .announcement-title{font:1000 clamp(30px,6vw,86px)/.95 Impact,'Arial Black',sans-serif;letter-spacing:clamp(2px,.6vw,8px);color:#fff;-webkit-text-stroke:2px #06101b;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 22px #ffe66d,0 0 48px #ff9e25;text-transform:uppercase}
-.winner-robot-image{width:min(42vw,430px);height:min(48vh,440px);object-fit:contain;filter:drop-shadow(0 12px 28px #000d);animation:float 4.5s ease-in-out infinite}
 .announcement-name{max-width:96vw;font:1000 clamp(44px,9vw,132px)/.9 Impact,'Arial Black',sans-serif;overflow-wrap:anywhere;text-transform:uppercase;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 20px #ffe66d,0 0 46px #ff8b24}
-.announcement-reason{max-width:min(1100px,94vw);font:900 clamp(18px,3.2vw,42px)/1.15 Arial,Helvetica,sans-serif;color:#fff;padding:12px 22px;border-radius:14px;background:#020711b8;border:1px solid #ffffff70;text-shadow:0 3px 5px #000;overflow-wrap:anywhere}
 .announcement-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:clamp(4px,1vh,14px)}
 .announcement-button{min-width:150px;padding:14px 24px;border:2px solid #ffffffa8;border-radius:13px;background:#07182be8;color:#fff;font:1000 clamp(15px,1.8vw,22px) Arial,Helvetica,sans-serif;letter-spacing:1px;cursor:pointer;box-shadow:0 6px 22px #0007}
 .announcement-button.primary{background:linear-gradient(100deg,#ffe44d,#ff9c26);border-color:#fff1a6;color:#111}
@@ -71,13 +74,13 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
 .next-robot img{width:100%;height:min(50vh,470px);object-fit:contain;filter:drop-shadow(0 14px 25px #000c);animation:float 4.5s ease-in-out infinite}
 .next-robot-name{max-width:100%;font:1000 clamp(38px,7.5vw,112px)/.9 Impact,'Arial Black',sans-serif;overflow-wrap:anywhere;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 24px #00dfff,0 0 44px #167dff;text-transform:uppercase}
 .next-vs{font:1000 italic clamp(48px,9vw,132px)/.9 Impact,'Arial Black',sans-serif;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 25px #00dfff}
-@media(max-width:700px){.announcement{padding:14px}.announcement-title{font-size:clamp(26px,8vw,48px)}.winner-robot-image{width:min(68vw,330px);height:min(38vh,300px)}.announcement-name{font-size:clamp(38px,12vw,76px);-webkit-text-stroke:2px #000}.announcement-reason{font-size:clamp(16px,4.5vw,24px);padding:10px 12px}.announcement-button{min-width:120px;padding:12px 16px}.next-matchup{gap:5px}.next-robot img{height:clamp(150px,37vh,300px)}.next-robot-name{font-size:clamp(25px,7.5vw,48px);-webkit-text-stroke:1.5px #000}.next-vs{font-size:clamp(34px,9vw,60px);-webkit-text-stroke:2px #000}}
-@media(max-height:520px){.announcement-content{gap:8px}.winner-robot-image{height:35vh}.next-robot img{height:36vh}.announcement-title{font-size:clamp(24px,5vw,48px)}.announcement-actions{margin-top:0}}
+@media(max-width:700px){.announcement{padding:12px}#winnerAnnouncement .announcement-content{grid-template-columns:minmax(82px,.55fr) minmax(0,1.45fr);column-gap:12px;row-gap:12px;padding:52px 0 0}#winnerAnnouncement .winner-heading{font-size:clamp(23px,6vw,36px)}#winnerAnnouncement .winner-robot-image{height:min(32vh,250px)}#winnerAnnouncement .announcement-name{font-size:clamp(31px,8vw,52px);-webkit-text-stroke:.5px #9eefff}.winner-data-panel{margin-top:0}.winner-data-cell{padding:12px 9px;gap:7px}.winner-data-label{font-size:10px;letter-spacing:1.5px}.winner-duration{font-size:clamp(17px,4.2vw,27px)}.announcement-reason{font-size:clamp(13px,3.5vw,20px)}.winner-top-icons button,.winner-top-icons span{width:36px;height:36px;font-size:21px}.announcement-title{font-size:clamp(26px,8vw,48px)}.announcement-name{font-size:clamp(38px,12vw,76px);-webkit-text-stroke:2px #000}.announcement-button{min-width:120px;padding:12px 16px}.next-matchup{gap:5px}.next-robot img{height:clamp(150px,37vh,300px)}.next-robot-name{font-size:clamp(25px,7.5vw,48px);-webkit-text-stroke:1.5px #000}.next-vs{font-size:clamp(34px,9vw,60px);-webkit-text-stroke:2px #000}}
+@media(max-height:520px){.announcement-content{gap:8px}#winnerAnnouncement .announcement-content{padding-top:42px}#winnerAnnouncement .winner-robot-image{height:27vh}.winner-data-cell{padding-top:9px;padding-bottom:9px}.next-robot img{height:36vh}.announcement-title{font-size:clamp(24px,5vw,48px)}.announcement-actions{margin-top:0}}
 </style>
 </head>
 <body>
 <div id="countdownOverlay" role="status" aria-live="assertive" hidden><div class="countdown-title">PREPARADOS PARA LA BATALLA</div><div class="countdown-number" id="countdownNumber">3</div></div>
-<section class="announcement" id="winnerAnnouncement" hidden aria-live="polite"><div class="announcement-content"><div class="announcement-title">🏆 GANADOR</div><div class="winner-details"><div class="announcement-name" id="winnerAnnouncementName">GANADOR</div><div class="winner-duration">TIEMPO DE BATALLA <span id="winnerAnnouncementTime">00:00:00</span></div><div class="announcement-reason" id="winnerAnnouncementReason">Motivo de la victoria</div></div><img class="winner-robot-image" id="winnerRobotImage" src="/R_Amarillo.png" alt="Robot ganador"></div></section>
+<section class="announcement" id="winnerAnnouncement" hidden aria-live="polite"><div class="winner-top-icons"><button id="winnerSettingsButton" type="button" aria-label="Abrir ajustes" title="Ajustes">⚙</button><span aria-label="Bluetooth" title="Bluetooth">ᛒ</span></div><div class="announcement-content"><div class="winner-heading">GANADOR</div><img class="winner-robot-image" id="winnerRobotImage" src="/R_Amarillo.png" alt="Robot ganador"><div class="winner-details"><div class="announcement-name" id="winnerAnnouncementName">ALPHA</div></div><div class="winner-data-panel"><div class="winner-data-cell"><span class="winner-data-label">TIEMPO</span><span class="winner-duration" id="winnerAnnouncementTime">00:00:00</span></div><div class="winner-data-cell"><span class="winner-data-label">MOTIVO</span><span class="announcement-reason" id="winnerAnnouncementReason">DECISIÓN ARBITRAL</span></div></div></div></section>
 <section class="announcement" id="nextAnnouncement" hidden aria-live="polite"><div class="announcement-content"><div class="announcement-title">PRÓXIMA BATALLA</div><div class="next-matchup"><div class="next-robot"><img id="nextRobotImage1" src="/R_Rojo.png" alt="Primer robot de la próxima batalla"><div class="next-robot-name" id="nextRobotName1">ROJO</div></div><div class="next-vs">VS</div><div class="next-robot"><img id="nextRobotImage2" src="/R_Verde.png" alt="Segundo robot de la próxima batalla"><div class="next-robot-name" id="nextRobotName2">VERDE</div></div></div></div></section>
 <button class="fullscreen" id="fullscreenToggle" type="button" aria-label="Activar pantalla completa" title="Pantalla completa">⛶</button>
 <button class="gear" id="openSettings" type="button" aria-label="Abrir menú de batalla" aria-controls="quickMenu" aria-expanded="false" title="Menú de batalla">⚙</button>
@@ -88,7 +91,7 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
   <section class="combatant left" id="combatant1" style="--robot-color:#ffe34d"><img class="robot-art" id="robotImage1" src="/R_Amarillo.png" alt="Robot izquierdo"><div class="robot-name" id="robot1">AMARILLO</div><div class="attack-score"><span>ATAQUES</span><strong id="attacks1">0</strong></div></section>
   <section class="center"><div class="vs">VS</div><div class="timer-label">TIEMPO</div><div class="timer" id="time">00:00:00</div></section>
   <section class="combatant right" id="combatant2" style="--robot-color:#c28cff"><img class="robot-art" id="robotImage2" src="/R_Morado.png" alt="Robot derecho"><div class="robot-name" id="robot2">MORADO</div><div class="attack-score"><span>ATAQUES</span><strong id="attacks2">0</strong></div></section>
- </main><div class="winner" id="winner" hidden></div>
+ </main>
 </div><div id="scrim" onclick="toggleSettings(false)" aria-hidden="true"></div>
 <aside id="settings" aria-label="Parámetros de batalla">
  <div class="settings-head"><h2>AJUSTES DE BATALLA</h2><button class="close" id="closeSettings" type="button" onclick="toggleSettings(false)" aria-label="Cerrar ajustes">×</button></div>
@@ -123,7 +126,7 @@ function render(s){
  $('attacks1').textContent=s.attacks1;$('attacks2').textContent=s.attacks2;$('time').textContent=fmt(s.elapsed_seconds);
  const status=$('status'),phase=s.phase||'ready';status.textContent=phase==='running'?'EN CURSO':phase==='paused'?'PAUSADO':phase==='finished'?'FINALIZADO':'EN PROCESO';
  status.classList.remove('running','paused','finished','ready');status.classList.add(phase==='running'?'running':phase==='paused'?'paused':phase==='finished'?'finished':'ready');
- $('winner').hidden=!s.winner;$('winner').textContent=s.winner?'🏆 GANADOR: '+s.winner+(s.reason?' · '+s.reason:''):'';
+ 
  $('attackName1').textContent=s.robot1;$('attackName2').textContent=s.robot2;$('panelAttacks1').textContent=s.attacks1+' ataques';$('panelAttacks2').textContent=s.attacks2+' ataques';
  $('attackCard1').className='attack-card '+colorClass(s.robot1_image,s.robot1);$('attackCard2').className='attack-card '+colorClass(s.robot2_image,s.robot2);
  ['addAttack1','removeAttack1','addAttack2','removeAttack2'].forEach(id=>$(id).disabled=phase!=='running');
@@ -225,6 +228,7 @@ function showNextAnnouncement(s){
  $('winnerAnnouncement').hidden=true;
  $('nextAnnouncement').hidden=false;
 }
+$('winnerSettingsButton').addEventListener('click',()=>{hideAnnouncements();toggleSettings(true)});
 $('showWinnerAnnouncement').addEventListener('click',async()=>{
  await enterAnnouncementFullscreen();
  try{
