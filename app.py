@@ -132,7 +132,7 @@ def next_battle():
         return jsonify(snapshot())
 
 def terminal_command_loop():
-    print("\nComandos: r.NOMBRE | rr.NOMBRE | t.MIN.SEG.CENTESIMAS | ini | pau | con | fin | g.1 | g.2 | p.NOMBRE1.NOMBRE2 | pn | salir")
+    print("\nComandos: r.NOMBRE | rr.NOMBRE | t.MIN.SEG.CENTESIMAS | mot.MOTIVO | ini | pau | con | fin | g.1 | g.2 | p.NOMBRE1.NOMBRE2 | pn | home | salir")
     while True:
         try:
             raw = input("MiniSumos > ").strip()
