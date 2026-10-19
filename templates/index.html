@@ -64,6 +64,7 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
   <label class="field-label" for="inputRobot1">Nombre robot izquierdo</label><input id="inputRobot1" maxlength="40" value="AMARILLO">
   <label class="field-label" for="inputRobot2">Nombre robot derecho</label><input id="inputRobot2" maxlength="40" value="MORADO">
   <div class="actions"><button class="action wide" id="saveNames">Guardar nombres</button><button class="action primary" id="start">▶ Iniciar</button><button class="action" id="pause">Ⅱ Pausar</button><button class="action danger" id="finish">■ Finalizar</button><button class="action" id="next">Siguiente batalla ↗</button></div>
+  <div class="actions"><button class="action danger wide" id="alarmButton" type="button">🚨 ALARM</button></div>
   <label class="field-label" for="winnerInput">Ganador (opcional)</label><input id="winnerInput" maxlength="40" placeholder="Nombre del robot ganador">
   <label class="field-label" for="reasonInput">Motivo (opcional)</label><input id="reasonInput" maxlength="80" placeholder="Ej. mayor número de ataques">
   <div class="actions"><button class="action wide" id="saveResult">Finalizar y guardar ganador</button></div>
@@ -100,6 +101,28 @@ function toggleQuickMenu(force){const menu=$('quickMenu'),gear=$('openSettings')
 function showTab(tab){const attacks=tab==='attacks';$('controlPanel').hidden=attacks;$('attacksPanel').hidden=!attacks;$('tabControl').classList.toggle('active',!attacks);$('tabAttacks').classList.toggle('active',attacks)}
 function showView(view){toggleQuickMenu(false);if(view==='attack1'||view==='attack2'){window.location.href='/attacks/'+(view==='attack1'?'1':'2');return}showTab('control');toggleSettings(true)}
 $('quickMenu').querySelectorAll('button[data-view]').forEach(button=>button.addEventListener('click',()=>showView(button.dataset.view)));$('openSettings').addEventListener('click',e=>{e.stopPropagation();toggleQuickMenu()});$('closeSettings').addEventListener('click',()=>toggleSettings(false));$('scrim').addEventListener('click',()=>{toggleSettings(false);toggleQuickMenu(false)});$('tabControl').addEventListener('click',()=>showTab('control'));$('tabAttacks').addEventListener('click',()=>showTab('attacks'));document.addEventListener('click',e=>{if(!$('quickMenu').hidden&&!$('quickMenu').contains(e.target)&&e.target!==$('openSettings'))toggleQuickMenu(false)});document.addEventListener('keydown',e=>{if(e.key==='Escape'){toggleSettings(false);toggleQuickMenu(false)}});
+let alarmAudio=null;
+const alarmButton=$('alarmButton');
+alarmButton.addEventListener('click',async()=>{
+ if(alarmAudio&&!alarmAudio.paused){
+  alarmAudio.pause();
+  alarmAudio.currentTime=0;
+  alarmButton.textContent='🚨 ALARM';
+  return;
+ }
+ try{
+  if(!alarmAudio){
+   alarmAudio=new Audio('/audio_final.m4a');
+   alarmAudio.preload='auto';
+   alarmAudio.addEventListener('ended',()=>{alarmButton.textContent='🚨 ALARM'});
+  }
+  alarmAudio.currentTime=0;
+  await alarmAudio.play();
+  alarmButton.textContent='■ DETENER ALARMA';
+ }catch(e){
+  alert('No se pudo reproducir el audio de alarma. Revisa que audio_final.m4a esté disponible y vuelve a intentarlo.');
+ }
+});
 $('saveNames').addEventListener('click',async()=>{try{render(await api('/api/config','POST',{robot1:$('inputRobot1').value,robot2:$('inputRobot2').value}))}catch(e){alert(e.message||'No se pudieron guardar los nombres.')}});
 let countdownRunning=false;
 function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
