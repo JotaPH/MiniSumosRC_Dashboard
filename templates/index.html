@@ -103,44 +103,29 @@ $('quickMenu').querySelectorAll('button[data-view]').forEach(button=>button.addE
 $('saveNames').addEventListener('click',async()=>{try{render(await api('/api/config','POST',{robot1:$('inputRobot1').value,robot2:$('inputRobot2').value}))}catch(e){alert(e.message||'No se pudieron guardar los nombres.')}});
 let countdownRunning=false;
 function wait(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
-function playImpact(finalHit=false){
- try{
-  const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
-  const ctx=new AudioCtx();if(ctx.state==='suspended')ctx.resume().catch(()=>{});
-  const now=ctx.currentTime;
-  // Pitidos cortos a 440 Hz durante 300 ms; señal final a 879 Hz durante 1 s.
-  const duration=finalHit?1.0:.3;
-  const peak=finalHit ? 0.23 : 0.14;
-  const frequency=finalHit ? 879 : 440;
-  const osc=ctx.createOscillator(),gain=ctx.createGain();
-  osc.type='sine';osc.frequency.setValueAtTime(frequency,now);
-  gain.gain.setValueAtTime(.0001,now);
-  gain.gain.exponentialRampToValueAtTime(peak,now+.018);
-  gain.gain.setValueAtTime(peak,now+duration*.72);
-  gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
-  osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+duration+.02);
-  window.setTimeout(()=>ctx.close().catch(()=>{}),Math.ceil((duration+.2)*1000));
- }catch(e){}
-}
 async function runCountdown(){
  if(countdownRunning)return;
  countdownRunning=true;$('start').disabled=true;
  const overlay=$('countdownOverlay'),number=$('countdownNumber');
  overlay.hidden=false;
- const startedAt=performance.now();
+ const audio=new Audio('/videoplayback.m4a');
+ audio.preload='auto';
+ audio.currentTime=0;
  const waitUntil=async(target)=>{const remaining=target-performance.now();if(remaining>0)await wait(remaining)};
  try{
+  await audio.play();
+  const startedAt=performance.now();
   for(let i=0;i<3;i++){
    await waitUntil(startedAt+i*1000);
    number.className='countdown-number';number.textContent=[3,2,1][i];
-   void number.offsetWidth;playImpact(false);
+   void number.offsetWidth;
   }
   await waitUntil(startedAt+3000);
   number.className='countdown-number go';number.textContent='¡YA!';
-  void number.offsetWidth;playImpact(true);
-  await waitUntil(startedAt+4000);
+  void number.offsetWidth;
+  await waitUntil(startedAt+5000);
   render(await api('/api/start','POST'));
- }catch(e){alert(e.message||'No se pudo iniciar la batalla.')}
+ }catch(e){audio.pause();audio.currentTime=0;alert(e.message||'No se pudo reproducir el audio o iniciar la batalla.')}
  finally{overlay.hidden=true;countdownRunning=false;$('start').disabled=false}
 }
 $('start').addEventListener('click',runCountdown);
