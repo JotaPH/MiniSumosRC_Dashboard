@@ -19,7 +19,7 @@ state = {
 def snapshot():
     data = dict(state)
     if data["phase"] == "running" and data["started_at"] is not None:
-        data["elapsed_seconds"] = data["elapsed_seconds"] + (time.time() - data["started_at"])
+        data["elapsed_seconds"] = time.time() - data["started_at"]
     return data
 
 @app.get("/")
@@ -161,8 +161,12 @@ def terminal_command_loop():
                     state["elapsed_seconds"] = elapsed
                     if state["phase"] == "running":
                         state["started_at"] = time.time() - elapsed
+                elif command.startswith("mot.") and raw[4:].strip():
+                    state["reason"] = raw[4:].strip().replace("_", " ")[:80]
+                elif command == "home":
+                    state.update({"ui_action": "home", "ui_action_id": state["ui_action_id"] + 1})
                 elif command == "ini":
-                    state.update({"attacks1": 0, "attacks2": 0, "winner": "", "reason": "",
+                    state.update({"attacks1": 0, "attacks2": 0, "winner": "",
                                   "started_at": time.time() - state["elapsed_seconds"],
                                   "status": "BATALLA EN CURSO", "phase": "running"})
                 elif command == "pau":
@@ -181,7 +185,7 @@ def terminal_command_loop():
                         state["elapsed_seconds"] += time.time() - state["started_at"]
                     state.update({"started_at": None, "phase": "finished", "status": "BATALLA FINALIZADA",
                                   "winner": state["robot1"] if command == "g.1" else state["robot2"],
-                                  "reason": "DECISIÓN ARBITRAL", "ui_action": "winner",
+                                  "reason": state["reason"] or "DECISIÓN ARBITRAL", "ui_action": "winner",
                                   "ui_action_id": state["ui_action_id"] + 1})
                 elif command.startswith("p."):
                     parts = raw.split(".")
