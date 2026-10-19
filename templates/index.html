@@ -115,12 +115,13 @@ async function runCountdown(){
  try{
   await audio.play();
   const startedAt=performance.now();
+  // Deja medio segundo para que el audio arranque; después cambia cada 1 s exacto.
   for(let i=0;i<3;i++){
-   await waitUntil(startedAt+i*1000);
+   await waitUntil(startedAt+500+i*1000);
    number.className='countdown-number';number.textContent=[3,2,1][i];
    void number.offsetWidth;
   }
-  await waitUntil(startedAt+3000);
+  await waitUntil(startedAt+3500);
   number.className='countdown-number go';number.textContent='¡YA!';
   void number.offsetWidth;
   await waitUntil(startedAt+5000);
