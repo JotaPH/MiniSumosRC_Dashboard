@@ -42,10 +42,34 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
 @media(max-width:700px){ #arena{padding:8px 7px}.status-wrap{min-height:56px;padding:6px 45px}.status{font-size:clamp(17px,4.6vw,29px);letter-spacing:1px;-webkit-text-stroke:1px #000}.fullscreen{width:36px;height:36px;top:8px;left:8px;font-size:21px}.gear{width:40px;height:40px;top:8px;right:8px;font-size:20px}.matchup{grid-template-columns:minmax(0,1fr) minmax(74px,.52fr) minmax(0,1fr);gap:1px}.robot-art{height:clamp(160px,37vh,340px);width:118%}.robot-name{font-size:clamp(21px,6vw,38px);letter-spacing:0;-webkit-text-stroke:1.4px #000}.attack-score{flex-direction:column;gap:8px;letter-spacing:1px;font-size:clamp(15px,4vw,21px);margin-top:14px}.attack-score strong{font-size:clamp(48px,13vw,76px);-webkit-text-stroke:1.5px #000}.vs{font-size:clamp(35px,9vw,58px);margin-bottom:25px;-webkit-text-stroke:2.5px #000}.timer-label{font-size:clamp(12px,3.2vw,16px);letter-spacing:1px;margin-bottom:9px}.timer{font-size:clamp(28px,7vw,45px);-webkit-text-stroke:2px #000}}
 @media(max-height:560px) and (min-width:701px){ #arena{padding-top:4px;padding-bottom:4px}.status-wrap{min-height:34px}.status{font-size:clamp(18px,2.4vw,30px)}.robot-art{height:48vh}.vs{margin-bottom:12px}.timer-label{margin-bottom:4px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Pantallas temporales de anuncio: ganador y próxima batalla */
+.announcement{position:fixed;inset:0;z-index:6000;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:clamp(18px,4vw,56px);background-position:center;background-size:cover;background-repeat:no-repeat;text-align:center;font-family:Impact,'Arial Black',system-ui,sans-serif}
+.announcement[hidden]{display:none}
+#winnerAnnouncement{background-image:linear-gradient(90deg,#02071155,#02071120 50%,#02071155),url('/Fondo_Ganar.jpg')}
+#nextAnnouncement{background-image:linear-gradient(90deg,#02071145,#02071110 50%,#02071145),url('/Fondo_Proxima.jpg')}
+.announcement-content{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,2.2vh,28px);min-height:0}
+.announcement-title{font:1000 clamp(30px,6vw,86px)/.95 Impact,'Arial Black',sans-serif;letter-spacing:clamp(2px,.6vw,8px);color:#fff;-webkit-text-stroke:2px #06101b;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 22px #ffe66d,0 0 48px #ff9e25;text-transform:uppercase}
+.winner-robot-image{width:min(42vw,430px);height:min(48vh,440px);object-fit:contain;filter:drop-shadow(0 12px 28px #000d);animation:float 4.5s ease-in-out infinite}
+.announcement-name{max-width:96vw;font:1000 clamp(44px,9vw,132px)/.9 Impact,'Arial Black',sans-serif;overflow-wrap:anywhere;text-transform:uppercase;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 20px #ffe66d,0 0 46px #ff8b24}
+.announcement-reason{max-width:min(1100px,94vw);font:900 clamp(18px,3.2vw,42px)/1.15 Arial,Helvetica,sans-serif;color:#fff;padding:12px 22px;border-radius:14px;background:#020711b8;border:1px solid #ffffff70;text-shadow:0 3px 5px #000;overflow-wrap:anywhere}
+.announcement-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:clamp(4px,1vh,14px)}
+.announcement-button{min-width:150px;padding:14px 24px;border:2px solid #ffffffa8;border-radius:13px;background:#07182be8;color:#fff;font:1000 clamp(15px,1.8vw,22px) Arial,Helvetica,sans-serif;letter-spacing:1px;cursor:pointer;box-shadow:0 6px 22px #0007}
+.announcement-button.primary{background:linear-gradient(100deg,#ffe44d,#ff9c26);border-color:#fff1a6;color:#111}
+.announcement-button:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.next-matchup{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:clamp(8px,3vw,48px);flex:1;min-height:0}
+.next-robot{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,2vh,24px);min-width:0;min-height:0}
+.next-robot img{width:100%;height:min(50vh,470px);object-fit:contain;filter:drop-shadow(0 14px 25px #000c);animation:float 4.5s ease-in-out infinite}
+.next-robot-name{max-width:100%;font:1000 clamp(38px,7.5vw,112px)/.9 Impact,'Arial Black',sans-serif;overflow-wrap:anywhere;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 24px #00dfff,0 0 44px #167dff;text-transform:uppercase}
+.next-vs{font:1000 italic clamp(48px,9vw,132px)/.9 Impact,'Arial Black',sans-serif;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 25px #00dfff}
+@media(max-width:700px){.announcement{padding:14px}.announcement-title{font-size:clamp(26px,8vw,48px)}.winner-robot-image{width:min(68vw,330px);height:min(38vh,300px)}.announcement-name{font-size:clamp(38px,12vw,76px);-webkit-text-stroke:2px #000}.announcement-reason{font-size:clamp(16px,4.5vw,24px);padding:10px 12px}.announcement-button{min-width:120px;padding:12px 16px}.next-matchup{gap:5px}.next-robot img{height:clamp(150px,37vh,300px)}.next-robot-name{font-size:clamp(25px,7.5vw,48px);-webkit-text-stroke:1.5px #000}.next-vs{font-size:clamp(34px,9vw,60px);-webkit-text-stroke:2px #000}}
+@media(max-height:520px){.announcement-content{gap:8px}.winner-robot-image{height:35vh}.next-robot img{height:36vh}.announcement-title{font-size:clamp(24px,5vw,48px)}.announcement-actions{margin-top:0}}
 </style>
 </head>
 <body>
 <div id="countdownOverlay" role="status" aria-live="assertive" hidden><div class="countdown-title">PREPARADOS PARA LA BATALLA</div><div class="countdown-number" id="countdownNumber">3</div></div>
+<section class="announcement" id="winnerAnnouncement" hidden aria-live="polite"><div class="announcement-content"><div class="announcement-title">🏆 GANADOR</div><img class="winner-robot-image" id="winnerRobotImage" src="/R_Amarillo.png" alt="Robot ganador"><div class="announcement-name" id="winnerAnnouncementName">GANADOR</div><div class="announcement-reason" id="winnerAnnouncementReason">Motivo de la victoria</div><div class="announcement-actions"><button class="announcement-button primary" id="showNextAnnouncement" type="button">PRÓXIMA ↗</button><button class="announcement-button" id="closeWinnerAnnouncement" type="button">VOLVER</button></div></div></section>
+<section class="announcement" id="nextAnnouncement" hidden aria-live="polite"><div class="announcement-content"><div class="announcement-title">PRÓXIMA BATALLA</div><div class="next-matchup"><div class="next-robot"><img id="nextRobotImage1" src="/R_Rojo.png" alt="Primer robot de la próxima batalla"><div class="next-robot-name" id="nextRobotName1">ROJO</div></div><div class="next-vs">VS</div><div class="next-robot"><img id="nextRobotImage2" src="/R_Verde.png" alt="Segundo robot de la próxima batalla"><div class="next-robot-name" id="nextRobotName2">VERDE</div></div></div><div class="announcement-actions"><button class="announcement-button primary" id="closeNextAnnouncement" type="button">VOLVER AL PANEL</button></div></div></section>
 <button class="fullscreen" id="fullscreenToggle" type="button" aria-label="Activar pantalla completa" title="Pantalla completa">⛶</button>
 <button class="gear" id="openSettings" type="button" aria-label="Abrir menú de batalla" aria-controls="quickMenu" aria-expanded="false" title="Menú de batalla">⚙</button>
 <nav id="quickMenu" aria-label="Opciones de batalla" hidden><button type="button" data-view="attack1">ATAQUES 1</button><button type="button" data-view="attack2">ATAQUES 2</button><button type="button" data-view="control">PANEL DE CONTROL</button></nav>
@@ -67,7 +91,7 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
   <div class="actions"><button class="action danger wide" id="alarmButton" type="button">🚨 ALARM</button></div>
   <label class="field-label" for="winnerInput">Ganador (opcional)</label><input id="winnerInput" maxlength="40" placeholder="Nombre del robot ganador">
   <label class="field-label" for="reasonInput">Motivo (opcional)</label><input id="reasonInput" maxlength="80" placeholder="Ej. mayor número de ataques">
-  <div class="actions"><button class="action wide" id="saveResult">Finalizar y guardar ganador</button></div>
+  <div class="actions"><button class="action wide" id="saveResult">Finalizar y guardar ganador</button><button class="action primary wide" id="showWinnerAnnouncement" type="button">🏆 GANADOR</button></div>
  </section>
  <section class="panel-section" id="attacksPanel" hidden>
   <p class="help" style="margin-top:0">Los botones se habilitan únicamente cuando la batalla esté <b>EN CURSO</b>.</p>
@@ -159,6 +183,52 @@ async function runCountdown(){
 $('start').addEventListener('click',runCountdown);
 $('pause').addEventListener('click',async()=>{try{render(await api('/api/pause','POST'))}catch(e){alert(e.message||'No se pudo pausar la batalla.')}});
 $('finish').addEventListener('click',async()=>{try{render(await api('/api/finish','POST'))}catch(e){alert(e.message||'No se pudo finalizar la batalla.')}});
+function hideAnnouncements(){ $('winnerAnnouncement').hidden=true; $('nextAnnouncement').hidden=true; }
+function showWinnerAnnouncement(s){
+ const winner=String(s.winner||$('winnerInput').value||'').trim();
+ if(!winner){alert('Escribe el nombre del robot ganador en el panel de control.');return}
+ const reason=String(s.reason||$('reasonInput').value||'').trim();
+ let winnerImage=s.robot1_image||'/R_Amarillo.png';
+ if(winner.toLocaleLowerCase()===String(s.robot2||'').trim().toLocaleLowerCase())winnerImage=s.robot2_image||'/R_Morado.png';
+ else if(winner.toLocaleLowerCase()!==String(s.robot1||'').trim().toLocaleLowerCase()){
+  const normalized=winner.toLocaleLowerCase();
+  if(normalized.includes('verde'))winnerImage='/R_Verde.png';
+  else if(normalized.includes('rojo'))winnerImage='/R_Rojo.png';
+  else if(normalized.includes('morado'))winnerImage='/R_Morado.png';
+  else if(normalized.includes('amarillo'))winnerImage='/R_Amarillo.png';
+ }
+ $('winnerRobotImage').src=winnerImage;
+ $('winnerRobotImage').alt='Robot ganador: '+winner;
+ $('winnerAnnouncementName').textContent=winner;
+ $('winnerAnnouncementReason').textContent=reason||'¡Victoria en la arena!';
+ $('winnerAnnouncement').hidden=false;
+ $('nextAnnouncement').hidden=true;
+}
+function showNextAnnouncement(s){
+ $('nextRobotName1').textContent=s.robot1||'POR DEFINIR';
+ $('nextRobotName2').textContent=s.robot2||'POR DEFINIR';
+ $('nextRobotImage1').src=s.robot1_image||'/R_Rojo.png';
+ $('nextRobotImage2').src=s.robot2_image||'/R_Verde.png';
+ $('nextRobotImage1').alt='Robot: '+(s.robot1||'por definir');
+ $('nextRobotImage2').alt='Robot: '+(s.robot2||'por definir');
+ $('winnerAnnouncement').hidden=true;
+ $('nextAnnouncement').hidden=false;
+}
+$('showWinnerAnnouncement').addEventListener('click',async()=>{
+ try{
+  const s=await api('/api/finish','POST',{winner:$('winnerInput').value,reason:$('reasonInput').value});
+  render(s);showWinnerAnnouncement(s);
+ }catch(e){alert(e.message||'No se pudo mostrar la pantalla de ganador.')}
+});
+$('showNextAnnouncement').addEventListener('click',async()=>{
+ try{
+  const s=await api('/api/next','POST');
+  render(s);$('winnerInput').value='';$('reasonInput').value='';
+  showNextAnnouncement(s);
+ }catch(e){alert(e.message||'No se pudo preparar la próxima batalla.')}
+});
+$('closeWinnerAnnouncement').addEventListener('click',hideAnnouncements);
+$('closeNextAnnouncement').addEventListener('click',hideAnnouncements);
 $('saveResult').addEventListener('click',async()=>{try{render(await api('/api/finish','POST',{winner:$('winnerInput').value,reason:$('reasonInput').value}))}catch(e){alert(e.message||'No se pudo guardar el resultado.')}});
 $('next').addEventListener('click',async()=>{try{render(await api('/api/next','POST'));$('winnerInput').value='';$('reasonInput').value='';showTab('control')}catch(e){alert(e.message||'No se pudo preparar la siguiente batalla.')}});
 async function attack(robot,action){try{render(await api(action==='add'?'/api/attack/'+robot:'/api/attack/'+robot+'/decrement','POST'))}catch(e){alert(e.message||'No se pudo actualizar el contador de ataques.')}}
