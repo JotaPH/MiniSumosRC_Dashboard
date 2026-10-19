@@ -33,7 +33,7 @@ def attacks_page(robot):
 
 @app.get("/<path:filename>")
 def assets(filename):
-    allowed = {"Fondo.jpg", "R_Amarillo.png", "R_Morado.png", "R_Rojo.png", "R_Verde.png", "videoplayback.m4a"}
+    allowed = {"Fondo.jpg", "R_Amarillo.png", "R_Morado.png", "R_Rojo.png", "R_Verde.png", "videoplayback.m4a", "audio_final.m4a"}
     if filename not in allowed:
         return jsonify({"error": "Recurso no encontrado"}), 404
     return send_from_directory(app.root_path, filename)
