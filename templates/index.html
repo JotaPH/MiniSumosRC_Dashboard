@@ -56,11 +56,13 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
 #winnerAnnouncement .announcement-name{font:1000 italic clamp(48px,8vw,116px)/.9 Impact,'Arial Black',sans-serif;color:#dffaff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000;letter-spacing:clamp(1px,.3vw,5px)}
 .winner-data-panel{grid-column:1/-1;grid-row:2;width:min(100%,1120px);justify-self:center;align-self:start;display:grid;grid-template-columns:1fr 1fr;position:relative;margin-top:clamp(0px,.5vh,6px);background:transparent;border:0;clip-path:none;box-shadow:none}
 .winner-data-cell{min-width:0;padding:clamp(14px,2.4vh,26px) clamp(12px,3vw,36px);display:flex;flex-direction:column;justify-content:center;gap:8px;text-align:left}
-.winner-data-cell+ .winner-data-cell{border-left:1px solid #54ffbd58}
+.winner-data-cell+ .winner-data-cell{border-left:0}
 .winner-data-label{font:1000 clamp(18px,2vw,28px)/1 Arial,sans-serif;letter-spacing:clamp(2px,.4vw,5px);color:#fff;-webkit-text-stroke:1px #000;paint-order:stroke fill;text-shadow:0 3px 0 #000}
 .winner-duration,.announcement-reason{font:1000 clamp(34px,5vw,66px)/1 Impact,'Arial Black',sans-serif;font-variant-numeric:tabular-nums;letter-spacing:1px;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill;text-shadow:0 4px 0 #000;overflow-wrap:anywhere;text-transform:uppercase}
 .winner-duration{white-space:nowrap}
 .announcement-reason{line-height:1.05}
+#noBattlesAnnouncement{background:linear-gradient(180deg,#02071155,#02071199),url('/No_Batalla.png') center/cover no-repeat}
+.no-battles-message{max-width:1200px;padding:0 4vw;font:1000 clamp(42px,8vw,120px)/.98 Impact,'Arial Black',sans-serif;letter-spacing:clamp(1px,.45vw,7px);color:#fff;text-transform:uppercase;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 6px 0 #000,0 0 22px #00dfff,0 0 48px #167dff}
 .announcement-title{font:1000 clamp(30px,6vw,86px)/.95 Impact,'Arial Black',sans-serif;letter-spacing:clamp(2px,.6vw,8px);color:#fff;-webkit-text-stroke:2px #06101b;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 22px #ffe66d,0 0 48px #ff9e25;text-transform:uppercase}
 .announcement-name{max-width:96vw;font:1000 clamp(44px,9vw,132px)/.9 Impact,'Arial Black',sans-serif;overflow-wrap:anywhere;text-transform:uppercase;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 20px #ffe66d,0 0 46px #ff8b24}
 .announcement-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:clamp(4px,1vh,14px)}
@@ -72,13 +74,14 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
 .next-robot img{width:100%;height:min(50vh,470px);object-fit:contain;filter:drop-shadow(0 14px 25px #000c);animation:float 4.5s ease-in-out infinite}
 .next-robot-name{max-width:100%;font:1000 clamp(38px,7.5vw,112px)/.9 Impact,'Arial Black',sans-serif;overflow-wrap:anywhere;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 24px #00dfff,0 0 44px #167dff;text-transform:uppercase}
 .next-vs{font:1000 italic clamp(48px,9vw,132px)/.9 Impact,'Arial Black',sans-serif;color:#fff;-webkit-text-stroke:3px #000;paint-order:stroke fill;text-shadow:0 5px 0 #000,0 0 25px #00dfff}
-@media(max-width:700px){.announcement{padding:12px}#winnerAnnouncement .announcement-content{grid-template-columns:minmax(125px,.85fr) minmax(0,1.15fr);grid-template-rows:minmax(0,1fr) auto;column-gap:12px;row-gap:5px;padding:44px 0 0}#winnerAnnouncement .winner-heading{font-size:clamp(31px,8vw,52px);-webkit-text-stroke:2px #000}#winnerAnnouncement .winner-robot-image{width:145%;height:min(50vh,380px)}#winnerAnnouncement .announcement-name{font-size:clamp(31px,8vw,52px);-webkit-text-stroke:2px #000}.winner-details{gap:0}.winner-data-panel{margin-top:0}.winner-data-cell{padding:8px 9px;gap:7px}.winner-data-label{font-size:12px;letter-spacing:1.5px}.winner-duration,.announcement-reason{font-size:clamp(22px,5vw,34px)}.announcement-title{font-size:clamp(26px,8vw,48px)}.announcement-name{font-size:clamp(38px,12vw,76px);-webkit-text-stroke:2px #000}.announcement-button{min-width:120px;padding:12px 16px}.next-matchup{gap:5px}.next-robot img{height:clamp(150px,37vh,300px)}.next-robot-name{font-size:clamp(25px,7.5vw,48px);-webkit-text-stroke:1.5px #000}.next-vs{font-size:clamp(34px,9vw,60px);-webkit-text-stroke:2px #000}}
+@media(max-width:700px){.announcement{padding:12px}#winnerAnnouncement .announcement-content{grid-template-columns:minmax(125px,.85fr) minmax(0,1.15fr);grid-template-rows:minmax(0,1fr) auto;column-gap:12px;row-gap:5px;padding:44px 0 0}#winnerAnnouncement .winner-heading{font-size:clamp(31px,8vw,52px);-webkit-text-stroke:2px #000}#winnerAnnouncement .winner-robot-image{width:145%;height:min(50vh,380px)}#winnerAnnouncement .announcement-name{font-size:clamp(31px,8vw,52px);-webkit-text-stroke:2px #000}.winner-details{gap:0}.winner-data-panel{margin-top:0}.winner-data-cell{padding:8px 9px;gap:7px}.winner-data-label{font-size:12px;letter-spacing:1.5px}.winner-duration,.announcement-reason{font-size:clamp(22px,5vw,34px)}.no-battles-message{font-size:clamp(32px,8vw,58px);-webkit-text-stroke:2px #000}.announcement-title{font-size:clamp(26px,8vw,48px)}.announcement-name{font-size:clamp(38px,12vw,76px);-webkit-text-stroke:2px #000}.announcement-button{min-width:120px;padding:12px 16px}.next-matchup{gap:5px}.next-robot img{height:clamp(150px,37vh,300px)}.next-robot-name{font-size:clamp(25px,7.5vw,48px);-webkit-text-stroke:1.5px #000}.next-vs{font-size:clamp(34px,9vw,60px);-webkit-text-stroke:2px #000}}
 @media(max-height:520px){.announcement-content{gap:8px}#winnerAnnouncement .announcement-content{padding-top:42px;grid-template-rows:minmax(0,1fr) auto}#winnerAnnouncement .winner-robot-image{height:42vh}.winner-data-cell{padding-top:7px;padding-bottom:7px}.winner-duration,.announcement-reason{font-size:clamp(25px,4vw,44px)}.next-robot img{height:36vh}.announcement-title{font-size:clamp(24px,5vw,48px)}.announcement-actions{margin-top:0}}
 </style>
 </head>
 <body>
 <div id="countdownOverlay" role="status" aria-live="assertive" hidden><div class="countdown-title">PREPARADOS PARA LA BATALLA</div><div class="countdown-number" id="countdownNumber">3</div></div>
 <section class="announcement" id="winnerAnnouncement" hidden aria-live="polite"><div class="announcement-content"><img class="winner-robot-image" id="winnerRobotImage" src="/R_Amarillo.png" alt="Robot ganador"><div class="winner-details"><div class="winner-heading">GANADOR</div><div class="announcement-name" id="winnerAnnouncementName">ALPHA</div></div><div class="winner-data-panel"><div class="winner-data-cell"><span class="winner-data-label">TIEMPO</span><span class="winner-duration" id="winnerAnnouncementTime">00:00:00</span></div><div class="winner-data-cell"><span class="winner-data-label">MOTIVO</span><span class="announcement-reason" id="winnerAnnouncementReason">DECISIÓN ARBITRAL</span></div></div></div></section>
+<section class="announcement" id="noBattlesAnnouncement" hidden aria-live="polite"><div class="announcement-content"><div class="no-battles-message">NO HAY BATALLAS PROGRAMADAS AÚN</div></div></section>
 <section class="announcement" id="nextAnnouncement" hidden aria-live="polite"><div class="announcement-content"><div class="announcement-title">PRÓXIMA BATALLA</div><div class="next-matchup"><div class="next-robot"><img id="nextRobotImage1" src="/R_Rojo.png" alt="Primer robot de la próxima batalla"><div class="next-robot-name" id="nextRobotName1">ROJO</div></div><div class="next-vs">VS</div><div class="next-robot"><img id="nextRobotImage2" src="/R_Verde.png" alt="Segundo robot de la próxima batalla"><div class="next-robot-name" id="nextRobotName2">VERDE</div></div></div></div></section>
 <button class="fullscreen" id="fullscreenToggle" type="button" aria-label="Activar pantalla completa" title="Pantalla completa">⛶</button>
 <button class="gear" id="openSettings" type="button" aria-label="Abrir menú de batalla" aria-controls="quickMenu" aria-expanded="false" title="Menú de batalla">⚙</button>
@@ -97,7 +100,7 @@ input{width:100%;padding:13px 12px;background:#071a2c;border:1px solid #31536f;b
  <section class="panel-section" id="controlPanel">
   <label class="field-label" for="inputRobot1">Nombre robot izquierdo</label><input id="inputRobot1" maxlength="40" value="AMARILLO">
   <label class="field-label" for="inputRobot2">Nombre robot derecho</label><input id="inputRobot2" maxlength="40" value="MORADO">
-  <div class="actions"><button class="action wide" id="saveNames">Guardar nombres</button><button class="action primary" id="start">▶ Iniciar</button><button class="action" id="pause">Ⅱ Pausar</button><button class="action danger" id="finish">■ Finalizar</button><button class="action primary" id="next">PRÓXIMA ↗</button></div>
+  <div class="actions"><button class="action wide" id="saveNames">Guardar nombres</button><button class="action primary" id="start">▶ Iniciar</button><button class="action" id="pause">Ⅱ Pausar</button><button class="action danger" id="finish">■ Finalizar</button><button class="action primary" id="next">PRÓXIMA ↗</button><button class="action" id="noBattlesButton" type="button">P. NO HAY</button></div>
   <div class="actions"><button class="action danger wide" id="alarmButton" type="button">🚨 ALARM</button></div>
   <label class="field-label" for="winnerInput">Ganador (opcional)</label><input id="winnerInput" maxlength="40" placeholder="Nombre del robot ganador">
   <label class="field-label" for="reasonInput">Motivo (opcional)</label><input id="reasonInput" maxlength="80" placeholder="Ej. mayor número de ataques">
@@ -193,7 +196,7 @@ async function runCountdown(){
 $('start').addEventListener('click',runCountdown);
 $('pause').addEventListener('click',async()=>{try{render(await api('/api/pause','POST'))}catch(e){alert(e.message||'No se pudo pausar la batalla.')}});
 $('finish').addEventListener('click',async()=>{try{render(await api('/api/finish','POST'))}catch(e){alert(e.message||'No se pudo finalizar la batalla.')}});
-function hideAnnouncements(){ $('winnerAnnouncement').hidden=true; $('nextAnnouncement').hidden=true; }
+function hideAnnouncements(){ $('winnerAnnouncement').hidden=true; $('nextAnnouncement').hidden=true; $('noBattlesAnnouncement').hidden=true; }
 async function enterAnnouncementFullscreen(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen()}catch(e){/* Algunos navegadores bloquean la pantalla completa; la pantalla de anuncio sigue funcionando. */}}
 function showWinnerAnnouncement(s){
  const winner=String(s.winner||$('winnerInput').value||'').trim();
@@ -216,6 +219,7 @@ function showWinnerAnnouncement(s){
  $('winnerAnnouncementReason').textContent=reason||'¡Victoria en la arena!';
  $('winnerAnnouncement').hidden=false;
  $('nextAnnouncement').hidden=true;
+ $('noBattlesAnnouncement').hidden=true;
 }
 function showNextAnnouncement(s){
  $('nextRobotName1').textContent=s.robot1||'POR DEFINIR';
@@ -225,7 +229,13 @@ function showNextAnnouncement(s){
  $('nextRobotImage1').alt='Robot: '+(s.robot1||'por definir');
  $('nextRobotImage2').alt='Robot: '+(s.robot2||'por definir');
  $('winnerAnnouncement').hidden=true;
+ $('noBattlesAnnouncement').hidden=true;
  $('nextAnnouncement').hidden=false;
+}
+function showNoBattlesAnnouncement(){
+ $('winnerAnnouncement').hidden=true;
+ $('nextAnnouncement').hidden=true;
+ $('noBattlesAnnouncement').hidden=false;
 }
 $('showWinnerAnnouncement').addEventListener('click',async()=>{
  await enterAnnouncementFullscreen();
@@ -235,6 +245,7 @@ $('showWinnerAnnouncement').addEventListener('click',async()=>{
  }catch(e){alert(e.message||'No se pudo mostrar la pantalla de ganador.')}
 });
 $('saveResult').addEventListener('click',async()=>{try{render(await api('/api/finish','POST',{winner:$('winnerInput').value,reason:$('reasonInput').value}))}catch(e){alert(e.message||'No se pudo guardar el resultado.')}});
+$('noBattlesButton').addEventListener('click',async()=>{await enterAnnouncementFullscreen();hideAnnouncements();$('noBattlesAnnouncement').hidden=false});
 $('next').addEventListener('click',async()=>{await enterAnnouncementFullscreen();try{const s=await api('/api/next','POST');render(s);$('winnerInput').value='';$('reasonInput').value='';showNextAnnouncement(s)}catch(e){alert(e.message||'No se pudo preparar la siguiente batalla.')}});
 async function attack(robot,action){try{render(await api(action==='add'?'/api/attack/'+robot:'/api/attack/'+robot+'/decrement','POST'))}catch(e){alert(e.message||'No se pudo actualizar el contador de ataques.')}}
 $('addAttack1').addEventListener('click',()=>attack(1,'add'));$('removeAttack1').addEventListener('click',()=>attack(1,'remove'));$('addAttack2').addEventListener('click',()=>attack(2,'add'));$('removeAttack2').addEventListener('click',()=>attack(2,'remove'));
