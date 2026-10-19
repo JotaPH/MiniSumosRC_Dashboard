@@ -39,7 +39,7 @@ button.action:disabled{opacity:.3;filter:grayscale(1);cursor:not-allowed}
 <main class="page" style="--robot-color:{{ '#ffe34d' if robot == 1 else '#c28cff' }}">
 <div class="kicker">MINISUMOS RC · PANEL DE ATAQUES</div>
 <h1>Control de ataques</h1>
-<img class="robot" id="robotImage" src="{{ '/R_Amarillo.png' if robot == 1 else '/R_Morado.png' }}" alt="Robot">
+<img class="robot" id="robotImage" src="{{ '/Imagenes/R_Amarillo.png' if robot == 1 else '/Imagenes/R_Morado.png' }}" alt="Robot">
 <div class="name" id="robotName">CARGANDO...</div>
 <div class="count" id="attackCount">0</div>
 <div class="unit">ATAQUES REGISTRADOS</div>
@@ -59,7 +59,7 @@ document.addEventListener('fullscreenchange',()=>{const active=!!document.fullsc
 async function api(path,method='GET'){const res=await fetch(path,{method,headers:{'Content-Type':'application/json'}});const data=await res.json().catch(()=>({}));if(!res.ok)throw Error(data.error||'Error');return data}
 function render(s){
  const one=ROBOT===1,name=one?s.robot1:s.robot2,count=one?s.attacks1:s.attacks2,image=one?s.robot1_image:s.robot2_image;
- $('robotName').textContent=name;$('attackCount').textContent=count;$('robotImage').src=image|| (one?'/R_Amarillo.png':'/R_Morado.png');
+ $('robotName').textContent=name;$('attackCount').textContent=count;$('robotImage').src=image|| (one?'/Imagenes/R_Amarillo.png':'/Imagenes/R_Morado.png');
  document.querySelector('.page').style.setProperty('--robot-color',one?'#ffe34d': '#c28cff');
  const running=s.phase==='running';$('addAttack').disabled=!running;$('removeAttack').disabled=!running;
  $('phase').textContent=running?'BATALLA EN CURSO':s.phase==='paused'?'BATALLA PAUSADA':s.phase==='finished'?'BATALLA FINALIZADA':'ESPERANDO INICIO';
