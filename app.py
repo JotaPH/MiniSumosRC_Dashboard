@@ -7,7 +7,7 @@ lock = Lock()
 
 state = {
     "robot1": "AMARILLO", "robot2": "MORADO",
-    "robot1_image": "/R_Amarillo.png", "robot2_image": "/R_Morado.png",
+    "robot1_image": "/Imagenes/R_Amarillo.png", "robot2_image": "/Imagenes/R_Morado.png",
     "battle_number": 1,
     "attacks1": 0, "attacks2": 0,
     "status": "PREPARADOS PARA LA BATALLA",
@@ -33,7 +33,7 @@ def attacks_page(robot):
 
 @app.get("/<path:filename>")
 def assets(filename):
-    allowed = {"Fondo.jpg", "Fondo_Ganar.jpg", "Fondo_Proxima.jpg", "No_Batalla.png", "R_Amarillo.png", "R_Morado.png", "R_Rojo.png", "R_Verde.png", "videoplayback.m4a", "audio_final.m4a"}
+    allowed = {"Imagenes/Fondo.jpg", "Imagenes/Fondo_Ganar.jpg", "Imagenes/Fondo_Proxima.jpg", "Imagenes/No_Batalla.png", "Imagenes/R_Amarillo.png", "Imagenes/R_Morado.png", "Imagenes/R_Rojo.png", "Imagenes/R_Verde.png", "Audios/videoplayback.m4a", "Audios/audio_final.m4a"}
     if filename not in allowed:
         return jsonify({"error": "Recurso no encontrado"}), 404
     return send_from_directory(app.root_path, filename)
@@ -115,8 +115,8 @@ def next_battle():
     with lock:
         next_number = state["battle_number"] + 1
         pairs = [
-            ("/R_Amarillo.png", "/R_Morado.png", "AMARILLO", "MORADO"),
-            ("/R_Rojo.png", "/R_Verde.png", "ROJO", "VERDE")
+            ("/Imagenes/R_Amarillo.png", "/Imagenes/R_Morado.png", "AMARILLO", "MORADO"),
+            ("/Imagenes/R_Rojo.png", "/Imagenes/R_Verde.png", "ROJO", "VERDE")
         ]
         pair = pairs[(next_number - 1) % 2]
         state.update({
