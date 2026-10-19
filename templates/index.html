@@ -146,6 +146,11 @@ let lastUiActionId=0;
 async function handleTerminalAction(s){
  if(!s.ui_action_id||s.ui_action_id===lastUiActionId)return;
  lastUiActionId=s.ui_action_id;
+ if(s.ui_action==='home'){
+  hideAnnouncements();
+  if(document.fullscreenElement){try{await document.exitFullscreen()}catch(e){}}
+  return;
+ }
  await enterAnnouncementFullscreen();
  if(s.ui_action==='winner')showWinnerAnnouncement(s);
  else if(s.ui_action==='next')showNextAnnouncement(s);
