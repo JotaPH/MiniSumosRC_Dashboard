@@ -124,11 +124,14 @@ async function api(path,method='GET',body=null){const opts={method,headers:{'Con
 function fmt(s){s=Math.max(0,Number(s)||0);const total=Math.floor(s*100+1e-6);const minutes=String(Math.floor(total/6000)).padStart(2,'0'),seconds=String(Math.floor(total/100)%60).padStart(2,'0'),centiseconds=String(total%100).padStart(2,'0');return minutes+':'+seconds+'<span class="centiseconds">'+centiseconds+'</span>'}
 function robotColor(image,name){const src=String(image||'').toLowerCase(),n=String(name||'').toLowerCase();if(src.includes('amarillo')||n.includes('amarill'))return'#ffe34d';if(src.includes('morado')||n.includes('morado'))return'#c28cff';if(src.includes('rojo')||n.includes('rojo'))return'#ff5878';if(src.includes('verde')||n.includes('verde'))return'#63ffad';return'#f5fbff'}
 function colorClass(image,name){const v=(String(image||'')+' '+String(name||'')).toLowerCase();if(v.includes('amarillo'))return'yellow';if(v.includes('morado'))return'purple';if(v.includes('rojo'))return'red';if(v.includes('verde'))return'green';return'purple'}
+let timerBaseSeconds=0,timerBaseAt=performance.now(),timerRunning=false;
+function updateClock(){const elapsed=timerBaseSeconds+(timerRunning?(performance.now()-timerBaseAt)/1000:0);$('time').innerHTML=fmt(elapsed)}
 function render(s){
+ timerBaseSeconds=Math.max(0,Number(s.elapsed_seconds)||0);timerBaseAt=performance.now();timerRunning=s.phase==='running';updateClock();
  $('robot1').textContent=s.robot1;$('robot2').textContent=s.robot2;
  $('robotImage1').src=s.robot1_image||'/Imagenes/R_Amarillo.png';$('robotImage2').src=s.robot2_image||'/Imagenes/R_Morado.png';
  $('combatant1').style.setProperty('--robot-color',robotColor(s.robot1_image,s.robot1));$('combatant2').style.setProperty('--robot-color',robotColor(s.robot2_image,s.robot2));
- $('attacks1').textContent=s.attacks1;$('attacks2').textContent=s.attacks2;$('time').innerHTML=fmt(s.elapsed_seconds);
+ $('attacks1').textContent=s.attacks1;$('attacks2').textContent=s.attacks2;
  const status=$('status'),phase=s.phase||'ready';status.textContent=phase==='running'?'EN CURSO':phase==='paused'?'PAUSADO':phase==='finished'?'FINALIZADO':'EN PROCESO';
  status.classList.remove('running','paused','finished','ready');status.classList.add(phase==='running'?'running':phase==='paused'?'paused':phase==='finished'?'finished':'ready');
  
@@ -267,6 +270,6 @@ $('noBattlesButton').addEventListener('click',async()=>{await enterAnnouncementF
 $('next').addEventListener('click',async()=>{await enterAnnouncementFullscreen();try{const s=await api('/api/next','POST');render(s);$('winnerInput').value='';$('reasonInput').value='';showNextAnnouncement(s)}catch(e){alert(e.message||'No se pudo preparar la siguiente batalla.')}});
 async function attack(robot,action){try{render(await api(action==='add'?'/api/attack/'+robot:'/api/attack/'+robot+'/decrement','POST'))}catch(e){alert(e.message||'No se pudo actualizar el contador de ataques.')}}
 $('addAttack1').addEventListener('click',()=>attack(1,'add'));$('removeAttack1').addEventListener('click',()=>attack(1,'remove'));$('addAttack2').addEventListener('click',()=>attack(2,'add'));$('removeAttack2').addEventListener('click',()=>attack(2,'remove'));
-async function refresh(){try{const s=await api('/api/state');render(s);await handleTerminalAction(s)}catch(e){$('status').textContent='SIN CONEXIÓN';$('status').classList.remove('running','paused','finished','ready')}}if(new URLSearchParams(window.location.search).get('panel')==='control'){showTab('control');toggleSettings(true)}refresh();setInterval(refresh,85);</script>
+async function refresh(){try{const s=await api('/api/state');render(s);await handleTerminalAction(s)}catch(e){$('status').textContent='SIN CONEXIÓN';$('status').classList.remove('running','paused','finished','ready')}}if(new URLSearchParams(window.location.search).get('panel')==='control'){showTab('control');toggleSettings(true)}refresh();setInterval(refresh,250);setInterval(updateClock,80);</script>
 </body>
 </html>
