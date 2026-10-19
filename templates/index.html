@@ -107,6 +107,10 @@ async function runCountdown(){
  if(countdownRunning)return;
  countdownRunning=true;$('start').disabled=true;
  const overlay=$('countdownOverlay'),number=$('countdownNumber');
+ // Reinicia visualmente la cuenta antes de mostrar la capa en cada intento.
+ number.className='countdown-number';
+ number.textContent='3';
+ void number.offsetWidth;
  overlay.hidden=false;
  const audio=new Audio('/videoplayback.m4a');
  audio.preload='auto';
